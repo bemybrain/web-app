@@ -1,0 +1,55 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+html, body {
+  font-size: 16px;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+p {
+  font-size: 16px;
+}
+
+
+
+/**
+*
+* Main section
+*
+**/
+
+.main-section {
+  text-align: center;
+  color: #fff;
+  background: #fffff;
+}
+
+.main-section img {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.main-section .intro-text .name {
+  display: block;
+  text-transform: uppercase;
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.main-section .intro-text .skills {
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+@media(min-width:768px) {
+  .main-section .intro-text .name {
+    font-size: 4.75em;
+  }
+
+  .main-section .intro-text .skills {
+    font-size: 1.75em;
+  }
+}

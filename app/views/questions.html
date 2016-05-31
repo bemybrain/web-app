@@ -1,0 +1,47 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container">
+  <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
+
+      <!-- <h1 class="page-header">
+        <small>Bem vindo,</small> Usuário
+      </h1> -->
+
+      <div class="question-item" ng-repeat="question in questions">
+        <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> Bruno - <i class="glyphicon glyphicon-time"></i> há 15 minutos</p>
+        <h3><a ui-sref="question({ id: question._id })" style="color: #000000">{{ question.title }}</a></h3>
+        <ul class="list-inline" ng-if="question.tags.length">
+          <li>Tags:</li>
+          <li ng-repeat="tag in question.tags"><a href="index.php" class="link_hover"><span class="label label-default">Default</span></a></li>
+        </ul>
+        <!--  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p> -->
+        <a class="btn btn-primary" ui-sref="question({ id: question._id })">Responder <i class="glyphicon glyphicon-chevron-right"></i></a>
+        <hr>
+      </div>
+
+
+      <!-- Pager -->
+      <ul class="pager">
+        <li class="previous">
+          <a href="#">&larr; Anterior</a>
+        </li>
+        <li class="next">
+          <a href="#">Próximo &rarr;</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4" ng-include="'/views/partials/sidebar.html'"></div>
+
+  </div>
