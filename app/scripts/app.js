@@ -35,6 +35,28 @@ angular
       .state('question', {
         url: '/questions/:id',
         templateUrl: 'views/question.html',
-        controller: 'QuestionsCtrl'
+        controller: 'QuestionsCtrl',
+        resolve: {
+          auth: ['$q', 'AuthenticationService', function ($q, AuthenticationService) {
+            var userInfo = AuthenticationService.getUserInfo()
+
+            if (userInfo) {
+              return $q.when(userInfo)
+            } else {
+              return $q.reject({ authenticated: false })
+            }
+          }]
+        }
       })
-  })
+  }
+    .run(['$rootScope', '$location', function ($rootScope, $location) {
+      $rootScope.$on('$routeChangeSuccess', function (userInfo) {
+        console.log(userInfo)
+      })
+
+      $rootScope.$on('$routeChangeError', function (event, current, previous, eventObj) {
+        if (eventObj.authenticated === false) {
+          $location.path('/login')
+        }
+      })
+    }]))
