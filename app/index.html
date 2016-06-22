@@ -26,10 +26,11 @@
     <!-- Navigation -->
     <header class="main-header" ng-include="'/views/partials/header.html'"></header>
 
-    <div ui-view></div>
+    <div class="main-body" ui-view></div>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <h1>{{ currentState }}</h1>
+    <section id="contact" ng-if="currentState !== 'login'">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -75,7 +76,7 @@
                         <div class="row">
                             <div class="form-group col-xs-12">
                               <button class="btn btn-success btn-lg" >Cadastrar</button><br></br>
-								<p><small>Já é Cadastrado ?<a href="index_login.html#contact">    Clique Aqui</a></small></p>
+								              <p><small>Já é Cadastrado? <a ui-sref="login">Clique Aqui</a></small></p>
                             </div>
                         </div>
                     </form>
@@ -180,6 +181,7 @@
         <script src="scripts/services/user.js"></script>
         <script src="scripts/services/answers.js"></script>
         <script src="scripts/services/authenticationservice.js"></script>
+        <script src="scripts/controllers/question.js"></script>
         <!-- endbuild -->
 </body>
 </html>

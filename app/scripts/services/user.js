@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * @ngdoc service
@@ -8,16 +8,20 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('User', function () {
-    // Service logic
-    // ...
-
-    var meaningOfLife = 42;
-
+  .factory('User', function (ENV, $http) {
     // Public API here
     return {
-      someMethod: function () {
-        return meaningOfLife;
+      findAll: function () {
+        return $http({
+          method: 'GET',
+          url: ENV.apiEndpoint + '/users'
+        })
+      },
+      findOne: function (id) {
+        return $http({
+          method: 'GET',
+          url: ENV.apiEndpoint + '/users/' + id
+        })
       }
-    };
-  });
+    }
+  })

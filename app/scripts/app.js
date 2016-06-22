@@ -27,6 +27,18 @@ angular
         controller: 'MainCtrl',
         templateUrl: 'views/main.html',
       })
+      .state('login', {
+        url: '/login',
+        controller: 'MainCtrl',
+        templateUrl: 'views/login.html',
+      })
+      .state('logout', {
+        url: '/logout',
+        controller: 'MainCtrl',
+        resolve: {
+          logout: logout
+        }
+      })
       .state('questions', {
         url: '/questions',
         templateUrl: 'views/questions.html',
@@ -35,28 +47,32 @@ angular
       .state('question', {
         url: '/questions/:id',
         templateUrl: 'views/question.html',
-        controller: 'QuestionsCtrl',
-        resolve: {
-          auth: ['$q', 'AuthenticationService', function ($q, AuthenticationService) {
-            var userInfo = AuthenticationService.getUserInfo()
-
-            if (userInfo) {
-              return $q.when(userInfo)
-            } else {
-              return $q.reject({ authenticated: false })
-            }
-          }]
-        }
+        controller: 'QuestionCtrl',
+        resolve: { auth: isAuthenticated }
       })
+  })
+  .run(['$rootScope', '$state', function ($rootScope, $state) {
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+      if (error.authenticated === false) {
+        return $state.go('login', {}, { reload: true })
+      }
+    })
+  }])
+  .run(['$rootScope', function ($rootScope, $location) {
+    $rootScope.$on('$stateChangeSuccess', function () {
+      document.body.scrollTop = document.documentElement.scrollTop = 0
+    })
+  }])
+
+function isAuthenticated ($q, AuthenticationService) {
+  var userInfo = AuthenticationService.getUserInfo()
+  if (userInfo) {
+    return $q.when(userInfo)
+  } else {
+    return $q.reject({ authenticated: false })
   }
-    .run(['$rootScope', '$location', function ($rootScope, $location) {
-      $rootScope.$on('$routeChangeSuccess', function (userInfo) {
-        console.log(userInfo)
-      })
+}
 
-      $rootScope.$on('$routeChangeError', function (event, current, previous, eventObj) {
-        if (eventObj.authenticated === false) {
-          $location.path('/login')
-        }
-      })
-    }]))
+function logout ($q, AuthenticationService) {
+  AuthenticationService.logout()
+}

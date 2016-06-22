@@ -25,6 +25,27 @@ angular.module('webAppApp')
         $window.sessionStorage['userInfo'] = JSON.stringify(userInfo)
         deferred.resolve(userInfo)
       }, function (error) {
+        console.log(error)
+        deferred.reject(error)
+      })
+
+      return deferred.promise
+    }
+
+    function logout () {
+      var deferred = $q.defer()
+
+      $http({
+        method: 'GET',
+        url: ENV.apiEndpoint + '/logout',
+        headers: {
+          'access_token': userInfo.accessToken
+        }
+      }).then(function (result) {
+        $window.sessionStorage['userInfo'] = null
+        userInfo = null
+        deferred.resolve(result)
+      }, function (error) {
         deferred.reject(error)
       })
 
@@ -35,8 +56,17 @@ angular.module('webAppApp')
       return userInfo
     }
 
+    function init () {
+      if ($window.sessionStorage['userInfo']) {
+        userInfo = JSON.parse($window.sessionStorage['userInfo'])
+      }
+    }
+
+    init()
+
     return {
       login: login,
-      getUserInfo: getUserInfo
+      getUserInfo: getUserInfo,
+      logout: logout
     }
   })

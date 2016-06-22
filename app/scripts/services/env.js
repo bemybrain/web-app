@@ -9,6 +9,6 @@
  */
 angular.module('webAppApp')
   .constant('ENV', {
-    name: 'production',
-    apiEndpoint: 'http://api-bemybrain.rhcloud.com/api'
+    name: 'development',
+    apiEndpoint: 'http://localhost:3000/api'
   })
