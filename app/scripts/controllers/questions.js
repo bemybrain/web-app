@@ -8,7 +8,7 @@
  * Controller of the webAppApp
  */
 angular.module('webAppApp')
-  .controller('QuestionsCtrl', function ($scope, $stateParams, Questions, User) {
+  .controller('QuestionsCtrl', function ($scope, $state, $stateParams, Questions, User) {
     getQuestions()
 
     function getQuestions (callback) {

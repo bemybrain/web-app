@@ -18,7 +18,7 @@ angular.module('webAppApp')
       if (userData.name && userData.email && userData.username && userData.password) {
         AuthenticationService.signup(userData).then(function (data) {
           $scope.getUserInfo()
-          $state.go('questions')
+          $state.go('myprofile')
         })
       }
     }

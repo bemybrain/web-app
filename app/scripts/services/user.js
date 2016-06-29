@@ -22,6 +22,18 @@ angular.module('webAppApp')
           method: 'GET',
           url: ENV.apiEndpoint + '/users/' + id
         })
+      },
+      update: function (id, data) {
+        return $http({
+          method: 'PUT',
+          url: ENV.apiEndpoint + '/users/' + id,
+          data: {
+            name: data.name,
+            username: data.username,
+            email: data.email,
+            interests: data.interests
+          }
+        })
       }
     }
   })

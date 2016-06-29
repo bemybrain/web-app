@@ -56,6 +56,12 @@ angular
         controller: 'NewQuestionCtrl',
         resolve: { auth: isAuthenticated }
       })
+      .state('myprofile', {
+        url: '/my-profile',
+        templateUrl: 'views/my-profile.html',
+        controller: 'UserCtrl',
+        resolve: { auth: isAuthenticated }
+      })
   })
   .run(['$rootScope', '$state', function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {

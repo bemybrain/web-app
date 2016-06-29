@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1>Meu Perfil</h1>
+      <br>
+
+      <form name="myProfileForm" novalidate ng-submit="updateProfile()">
+        <div class="form-group">
+          <label class="control-label">Nome</label>
+          <input ng-model="profile.name" type="text" class="form-control" placeholder="Nome" name="name" required>
+          <p ng-if="myProfileForm.name.$error && myProfileForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Email</label>
+          <input ng-model="profile.email" type="email" class="form-control" placeholder="Email" name="email" required>
+          <p ng-if="myProfileForm.email.$error && myProfileForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Usuário</label>
+          <input ng-model="profile.username" type="text" class="form-control" placeholder="Usuário" name="username" required>
+          <p ng-if="myProfileForm.username.$error && myProfileForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
+        </div>
+        <div class="form-group">
+          <label>Tags de interesse</label>
+          <textarea ng-model="profile.interests" rows="3" class="form-control" placeholder="Separe as tags por linhas" name="interests" ng-list="&#10;" ng-trim="false"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success btn-lg btn-block">Salvar</button><br></br>
+        </div>
+      </form>
+
+
+      <form name="newPasswordForm">
+        <div class="form-group">
+          <label class="control-label">Redefinir senha</label>
+          <input ng-model="newPassword" type="text" class="form-control" placeholder="Nova senha" name="password">
+          <p ng-if="newPasswordForm.password.$error && newPasswordForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Salvar</button><br></br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
