@@ -10,7 +10,18 @@
 angular.module('webAppApp')
   .controller('MainCtrl', function ($scope, $state, AuthenticationService) {
     $scope.currentState = $state.current.name
-    $scope.currentState = $state.current.name
+    $scope.newUser = {}
+
+    $scope.signup = function (userData) {
+      console.log($scope.newUser)
+      if (!userData) var userData = $scope.newUser
+      if (userData.name && userData.email && userData.username && userData.password) {
+        AuthenticationService.signup(userData).then(function (data) {
+          $scope.getUserInfo()
+          $state.go('questions')
+        })
+      }
+    }
 
     $scope.login = function (username, password) {
       var username = username || $scope.login.username
@@ -27,7 +38,7 @@ angular.module('webAppApp')
     }
 
     $scope.isLoggedIn = function () {
-      console.log(AuthenticationService.getUserInfo())
+      return AuthenticationService.isLoggedIn()
     }
 
     $scope.getUserInfo = function () {

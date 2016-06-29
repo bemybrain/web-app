@@ -50,11 +50,17 @@ angular
         controller: 'QuestionCtrl',
         resolve: { auth: isAuthenticated }
       })
+      .state('newquestion', {
+        url: '/new-question',
+        templateUrl: 'views/new-question.html',
+        controller: 'NewQuestionCtrl',
+        resolve: { auth: isAuthenticated }
+      })
   })
   .run(['$rootScope', '$state', function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
       if (error.authenticated === false) {
-        return $state.go('login', {}, { reload: true })
+        $state.go('login', {}, { reload: true })
       }
     })
   }])
@@ -62,6 +68,9 @@ angular
     $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0
     })
+  }])
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.defaults.withCredentials = true
   }])
 
 function isAuthenticated ($q, AuthenticationService) {
@@ -73,6 +82,8 @@ function isAuthenticated ($q, AuthenticationService) {
   }
 }
 
-function logout ($q, AuthenticationService) {
-  AuthenticationService.logout()
+function logout ($q, AuthenticationService, $state) {
+  AuthenticationService.logout().then(function () {
+    $state.go('login', {}, { reload: true })
+  })
 }

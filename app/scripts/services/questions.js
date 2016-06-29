@@ -11,6 +11,18 @@ angular.module('webAppApp')
   .factory('Questions', function (ENV, $http) {
     // Public API here
     return {
+      create: function (data) {
+        return $http({
+          method: 'POST',
+          url: ENV.apiEndpoint + '/questions',
+          data: {
+            title: data.title,
+            body: data.body,
+            author: data.author,
+            tags: data.tags
+          }
+        })
+      },
       findAll: function () {
         return $http({
           method: 'GET',

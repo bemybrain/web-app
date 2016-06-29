@@ -30,11 +30,15 @@ angular.module('webAppApp')
           url: ENV.apiEndpoint + '/answers/' + id
         })
       },
-      create: function (data) {
+      sendAnswer: function (data) {
         return $http({
           method: 'POST',
           url: ENV.apiEndpoint + '/answers',
-          data: data
+          data: {
+            body: data.body,
+            author: data.author,
+            question: data.question
+          }
         })
       }
     }

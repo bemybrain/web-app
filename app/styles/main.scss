@@ -1,58 +1,163 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+
+/**
+*
+* Variables
+*
+**/
+$color-1: #2c3e50;
+.color-1 { color: $color-1; }
+$color-2: #683ebd;
+.color-2 { color: $color-2; }
+$color-3: #18bc9c;
+.color-3 { color: $color-3; }
+
+
+
 html, body {
-  font-size: 16px;
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100%;
+  position: relative;
 }
 
-p {
-  font-size: 16px;
+p {}
+
+a {
+  color: $color-2;
+
+  &:hover, &:active, &:focus {
+    color: darken($color-2, 10%);
+    text-decoration: none;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 700;
+}
+
+.btn-info {
+  background: $color-2;
+  border-color: darken($color-2, 5%);
+
+  &:hover, &:active, &:focus {
+    background: darken($color-2, 10%);
+    border-color: darken($color-2, 15%);
+  }
 }
 
 
+/**
+*
+* Header
+*
+**/
+.main-header {
+  position: relative;
+  z-index: 99999;
+
+  .navbar-default {
+    background-color: $color-2;
+    border-radius: 0;
+  }
+
+  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    background-color: $color-3;
+  }
+}
+
+/**
+*
+* Home
+*
+**/
+.section-home {
+  background: url(../images/pattern.png) no-repeat center center $color-2;
+  background-attachment: fixed;
+  color: #fff;
+  position: relative;
+  height: 100%;
+  margin-top: -80px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.home-hero {}
 
 /**
 *
 * Main section
 *
 **/
-
-.main-body {
-  padding-top: 80px;
-}
+.main-body {}
 .main-section {
-  text-align: center;
+  padding: 5% 0;
+}
+.bg-highlight {
+  background-color: #efefef;
+}
+
+
+/**
+*
+* Star detail
+*
+**/
+hr.star-light,
+hr.star-primary {
+    margin: 25px auto 30px;
+    padding: 0;
+    max-width: 250px;
+    border: 0;
+    border-top: solid 5px;
+    text-align: center;
+}
+
+hr.star-light:after,
+hr.star-primary:after {
+    content: "\f005";
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    padding: 0 .25em;
+    font-family: FontAwesome;
+    font-size: 2em;
+}
+
+hr.star-light {
+    border-color: $color-3;
+}
+
+hr.star-light:after {
+    color: $color-2;
+    background-color: #fff;
+}
+
+hr.star-primary {
+    border-color: $color-3;
+}
+
+hr.star-primary:after {
+    color: $color-2;
+    background-color: #fff;
+}
+
+
+/**
+*
+* Main Footer
+*
+**/
+.main-footer {
+  background: $color-1;
+  padding: 60px 0;
   color: #fff;
-  background: #fffff;
-}
 
-.main-section img {
-  display: block;
-  margin: 0 auto 20px;
-}
-
-.main-section .intro-text .name {
-  display: block;
-  text-transform: uppercase;
-  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 2em;
-  font-weight: 700;
-}
-
-.main-section .intro-text .skills {
-  font-size: 1.25em;
-  font-weight: 300;
-}
-
-@media(min-width:768px) {
-  .main-section .intro-text .name {
-    font-size: 4.75em;
-  }
-
-  .main-section .intro-text .skills {
-    font-size: 1.75em;
+  a {
+    color: $color-3;
   }
 }

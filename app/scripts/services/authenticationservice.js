@@ -8,7 +8,7 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('AuthenticationService', function ($http, $q, $window, ENV) {
+  .factory('AuthenticationService', function ($http, $q, $cookies, ENV) {
     var userInfo
 
     function login (username, password) {
@@ -18,11 +18,27 @@ angular.module('webAppApp')
         username: username,
         password: password
       }).then(function (result) {
-        userInfo = {
-          accessToken: result.data.access_token,
-          username: result.data.username
-        }
-        $window.sessionStorage['userInfo'] = JSON.stringify(userInfo)
+        userInfo = result.data
+        $cookies.put('userInfo', JSON.stringify(userInfo))
+        deferred.resolve(userInfo)
+      }, function (error) {
+        console.log(error)
+        deferred.reject(error)
+      })
+
+      return deferred.promise
+    }
+
+    function signup (userData) {
+      var deferred = $q.defer()
+      $http.post(ENV.apiEndpoint + '/signup', {
+        username: userData.username,
+        password: userData.password,
+        name: userData.name,
+        email: userData.email
+      }).then(function (result) {
+        userInfo = result.data
+        $cookies.put('userInfo', JSON.stringify(userInfo))
         deferred.resolve(userInfo)
       }, function (error) {
         console.log(error)
@@ -37,12 +53,9 @@ angular.module('webAppApp')
 
       $http({
         method: 'GET',
-        url: ENV.apiEndpoint + '/logout',
-        headers: {
-          'access_token': userInfo.accessToken
-        }
+        url: ENV.apiEndpoint + '/logout'
       }).then(function (result) {
-        $window.sessionStorage['userInfo'] = null
+        $cookies.remove('userInfo')
         userInfo = null
         deferred.resolve(result)
       }, function (error) {
@@ -56,17 +69,43 @@ angular.module('webAppApp')
       return userInfo
     }
 
-    function init () {
-      if ($window.sessionStorage['userInfo']) {
-        userInfo = JSON.parse($window.sessionStorage['userInfo'])
+    function isLoggedIn () {
+      if (userInfo && userInfo !== null) {
+        return true
+      } else {
+        return false
       }
+    }
+
+    function init () {
+      var userInfoCookies = $cookies.get('userInfo')
+      if (userInfoCookies) {
+        userInfo = JSON.parse(userInfoCookies)
+      }
+    }
+
+    function isAuthenticated () {
+      var deferred = $q.defer()
+
+      $http.get(ENV.apiEndpoint + '/loggedin')
+        .then(function (result) {
+          deferred.resolve(result)
+        }, function (error) {
+          console.log(error)
+          deferred.reject(error)
+        })
+
+      return deferred.promise
     }
 
     init()
 
     return {
+      signup: signup,
       login: login,
       getUserInfo: getUserInfo,
+      isLoggedIn: isLoggedIn,
+      isAuthenticated: isAuthenticated,
       logout: logout
     }
   })
