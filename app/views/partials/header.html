@@ -9,25 +9,25 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Be My Brain</a>
+        <a class="navbar-brand" ui-sref="main.home">Be My Brain</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li class="hidden"><a href="#page-top"></a></li>
-          <li class="page-scroll"><a href="#about">Sobre</a></li>
-          <li><a ui-sref="questions">Perguntas</a></li>
-          <li ng-if="!isLoggedIn()"><a ui-sref="login">Login/Cadastro</a></li>
+          <li class="page-scroll"><a ui-sref="main.home">Sobre</a></li>
+          <li><a ui-sref="main.questions">Perguntas</a></li>
+          <li ng-if="!isLoggedIn()"><a ui-sref="main.login">Login/Cadastro</a></li>
           <li class="dropdown" ng-if="isLoggedIn()">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></a>
             <ul class="dropdown-menu">
-              <li><a ui-sref="myprofile">Meu perfil</a></li>
-              <li><a ui-sref="questions">Minhas perguntas</a></li>
+              <li><a ui-sref="main.myprofile">Meu perfil</a></li>
+              <li><a ui-sref="main.questions">Minhas perguntas</a></li>
               <li role="separator" class="divider"></li>
               <li><a ui-sref="logout">Sair</a></li>
             </ul>
           </li>
-          <li class="active"><a ui-sref="newquestion">Nova pergunta</a></li>
+          <li class="active"><a ui-sref="main.newquestion">Nova pergunta</a></li>
         </ul>
       </div>
     </div>

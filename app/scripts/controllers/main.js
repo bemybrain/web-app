@@ -8,7 +8,8 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('MainCtrl', function ($scope, $state, AuthenticationService) {
+  .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService) {
+
     $scope.currentState = $state.current.name
     $scope.newUser = {}
 
@@ -29,7 +30,7 @@ angular.module('webAppApp')
 
       AuthenticationService.login(username, password).then(function (data) {
         $scope.getUserInfo()
-        $state.go('questions')
+        $state.go('main.questions')
       })
     }
 

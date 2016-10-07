@@ -15,19 +15,51 @@ angular
     'ngTouch',
     'ui.router'
   ])
-  .config(function ($stateProvider, $urlRouterProvider) {
-    //
-    // For any unmatched url, redirect to /state1
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+    // the unknown
     $urlRouterProvider.otherwise('/')
-    //
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    })
+
     // Now set up the states
     $stateProvider
       .state('main', {
-        url: '/',
-        controller: 'MainCtrl',
-        templateUrl: 'views/main.html',
+        abstract: true,
+        template: '<ui-view/>',
+        controller: 'MainCtrl'
       })
-      .state('login', {
+      .state('main.home', {
+        url: '/',
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
+      .state('main.questions', {
+        url: '/questions',
+        templateUrl: 'views/questions.html',
+        controller: 'QuestionsCtrl'
+      })
+      .state('main.question', {
+        url: '/questions/:id',
+        templateUrl: 'views/question.html',
+        controller: 'QuestionCtrl',
+        resolve: { auth: isAuthenticated }
+      })
+      .state('main.newquestion', {
+        url: '/new-question',
+        templateUrl: 'views/new-question.html',
+        controller: 'NewQuestionCtrl',
+        resolve: { auth: isAuthenticated }
+      })
+      .state('main.myprofile', {
+        url: '/my-profile',
+        templateUrl: 'views/my-profile.html',
+        controller: 'UserCtrl',
+        resolve: { auth: isAuthenticated }
+      })
+      .state('main.login', {
         url: '/login',
         controller: 'MainCtrl',
         templateUrl: 'views/login.html',
@@ -39,34 +71,11 @@ angular
           logout: logout
         }
       })
-      .state('questions', {
-        url: '/questions',
-        templateUrl: 'views/questions.html',
-        controller: 'QuestionsCtrl'
-      })
-      .state('question', {
-        url: '/questions/:id',
-        templateUrl: 'views/question.html',
-        controller: 'QuestionCtrl',
-        resolve: { auth: isAuthenticated }
-      })
-      .state('newquestion', {
-        url: '/new-question',
-        templateUrl: 'views/new-question.html',
-        controller: 'NewQuestionCtrl',
-        resolve: { auth: isAuthenticated }
-      })
-      .state('myprofile', {
-        url: '/my-profile',
-        templateUrl: 'views/my-profile.html',
-        controller: 'UserCtrl',
-        resolve: { auth: isAuthenticated }
-      })
   })
   .run(['$rootScope', '$state', function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
       if (error.authenticated === false) {
-        $state.go('login', {}, { reload: true })
+        $state.go('main.login', {}, { reload: true })
       }
     })
   }])
@@ -90,6 +99,6 @@ function isAuthenticated ($q, AuthenticationService) {
 
 function logout ($q, AuthenticationService, $state) {
   AuthenticationService.logout().then(function () {
-    $state.go('login', {}, { reload: true })
+    $state.go('main.login', {}, { reload: true })
   })
 }

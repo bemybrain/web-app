@@ -59,6 +59,7 @@ angular.module('webAppApp')
         question: $scope.question._id
       }
       sendAnswer(data, function (res) {
+        $scope.newAnswer = {}
         getAnswers()
         console.log(res)
       })

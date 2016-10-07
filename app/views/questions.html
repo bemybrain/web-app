@@ -6,7 +6,7 @@
       <div class="panel panel-default question-item" ng-repeat="question in questions | orderBy : date : true | filter : query">
         <div class="panel-body">
           <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }} - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
-          <h3><a class="color-1" ui-sref="question({ id: question._id })">{{ question.title }}</a></h3>
+          <h3><a class="color-1" ui-sref="main.question({ id: question._id })">{{ question.title }}</a></h3>
           <p ng-if="question.body">{{ question.body | limitTo : 200 }} [...]</p>
           <div class="row">
             <div class="col-sm-6">
@@ -16,7 +16,7 @@
               </ul>
             </div>
             <div class="col-sm-6 text-right">
-              <a class="btn btn-info" ui-sref="question({ id: question._id })">Responder <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <a class="btn btn-info" ui-sref="main.question({ id: question._id })">Responder <i class="glyphicon glyphicon-chevron-right"></i></a>
             </div>
           </div>
         </div>
