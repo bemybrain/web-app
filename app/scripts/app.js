@@ -19,10 +19,11 @@ angular
 
     // the unknown
     $urlRouterProvider.otherwise('/')
-    $locationProvider.html5Mode({
+    /*$locationProvider.html5Mode({
       enabled: true,
       requireBase: false
-    })
+    })*/
+    
 
     // Now set up the states
     $stateProvider
