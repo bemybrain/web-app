@@ -8,11 +8,22 @@
  * Controller of the webAppApp
  */
 angular.module('webAppApp')
-  .controller('QuestionsCtrl', function ($scope, $state, $stateParams, Questions, User) {
-    getQuestions()
+  .controller('QuestionsCtrl', function ($scope, $state, $stateParams, Questions, User, AuthenticationService) {
 
-    function getQuestions (callback) {
-      Questions.findAll().then(function (res) {
+    function init () {
+      var userId = $stateParams.userId || null
+      var questionsParams = {}
+
+      if (userId) {
+        if (userId === 'my-questions') userId = AuthenticationService.getUserInfo()._id
+        questionsParams.author = userId
+      }
+
+      getQuestions(questionsParams)
+    }
+
+    function getQuestions (params, callback) {
+      Questions.findAll(params).then(function (res) {
         $scope.questions = res.data
         if (callback) callback()
       }, function (err) {
@@ -20,5 +31,7 @@ angular.module('webAppApp')
         if (callback) callback()
       })
     }
+
+    init()
 
   })

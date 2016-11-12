@@ -19,11 +19,11 @@ angular
 
     // the unknown
     $urlRouterProvider.otherwise('/')
-    /*$locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    })*/
-    
+    // $locationProvider.html5Mode({
+    //   enabled: true,
+    //   requireBase: false
+    // })
+
 
     // Now set up the states
     $stateProvider
@@ -38,7 +38,7 @@ angular
         controller: 'MainCtrl'
       })
       .state('main.questions', {
-        url: '/questions',
+        url: '/questions/:userId',
         templateUrl: 'views/questions.html',
         controller: 'QuestionsCtrl'
       })

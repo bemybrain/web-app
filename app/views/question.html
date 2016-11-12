@@ -4,7 +4,7 @@
     <!-- Blog Post Content Column -->
     <div class="col-lg-8">
       <ol class="breadcrumb">
-        <li><a ui-sref="main.main">Home</a></li>
+        <li><a ui-sref="main.home">Home</a></li>
         <li><a ui-sref="main.questions">Perguntas</a></li>
         <li class="active">{{ question.title }}</li>
       </ol>
@@ -20,7 +20,7 @@
         <br>
         <ul class="list-inline" ng-if="question.tags.length">
           <li>Tags:</li>
-          <li ng-repeat="tag in question.tags"><span class="label label-default">{{ tag }}</span></li>
+          <li ng-repeat="tag in question.tags"><span class="label label-default">{{ tag.name }}</span></li>
         </ul>
       </article>
 

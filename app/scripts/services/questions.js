@@ -23,10 +23,12 @@ angular.module('webAppApp')
           }
         })
       },
-      findAll: function () {
+      findAll: function (params) {
+        console.log(params);
         return $http({
           method: 'GET',
-          url: ENV.apiEndpoint + '/questions'
+          url: ENV.apiEndpoint + '/questions',
+          params: params || {}
         })
       },
       findOne: function (id) {
