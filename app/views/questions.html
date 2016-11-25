@@ -12,7 +12,7 @@
             <div class="col-xs-1 text-center" ng-if="userInfo._id === question.author._id">
               <a href="" bs-dropdown aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href><i class="fa fa-pencil" aria-hidden="true"></i> Editar pergunta</a></li>
+                <li><a ui-sref="main.editquestion({ id: question._id })"><i class="fa fa-pencil" aria-hidden="true"></i> Editar pergunta</a></li>
                 <li><a href ng-click="confirmDelete(question._id)"><i class="fa fa-trash-o" aria-hidden="true"></i> Excluir pergunta</a></li>
               </ul>
             </div>

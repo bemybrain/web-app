@@ -8,7 +8,7 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('NewQuestionCtrl', function ($scope, $state, Questions, User, AuthenticationService) {
+  .controller('NewQuestionCtrl', function ($scope, $state, Questions, User, AuthenticationService, Tag) {
     $scope.newQuestion = {}
 
     $scope.isLoggedIn = function () {
@@ -29,6 +29,10 @@ angular.module('webAppApp')
       }, function (err) {
         console.log(err)
       })
+    }
+
+    $scope.loadTags = function (query) {
+      return Tag.findAll()
     }
 
   })

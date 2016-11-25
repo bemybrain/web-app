@@ -53,6 +53,12 @@ angular
         controller: 'QuestionCtrl',
         resolve: { auth: isAuthenticated }
       })
+      .state('main.editquestion', {
+        url: '/questions/:id/edit',
+        templateUrl: 'views/edit-question.html',
+        controller: 'QuestionCtrl',
+        resolve: { auth: isAuthenticated }
+      })
       .state('main.newquestion', {
         url: '/new-question',
         templateUrl: 'views/new-question.html',

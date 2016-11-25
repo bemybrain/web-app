@@ -23,6 +23,18 @@ angular.module('webAppApp')
           }
         })
       },
+      edit: function (question) {
+        return $http({
+          method: 'PUT',
+          url: ENV.apiEndpoint + '/questions/' + question._id,
+          data: {
+            title: question.title,
+            body: question.body,
+            tags: question.tags,
+            status: question.status
+          }
+        })
+      },
       findAll: function (params) {
         return $http({
           method: 'GET',

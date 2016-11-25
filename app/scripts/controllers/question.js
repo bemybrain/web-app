@@ -8,7 +8,7 @@
  * Controller of the webAppApp
  */
 angular.module('webAppApp')
-  .controller('QuestionCtrl', function ($scope, $stateParams, Questions, Answers, User, AuthenticationService, AlertMessage) {
+  .controller('QuestionCtrl', function ($scope, $state, $stateParams, Questions, Answers, User, AuthenticationService, AlertMessage, Tag) {
     $scope.newAnswer = {}
     $scope.loading = false
 
@@ -44,7 +44,7 @@ angular.module('webAppApp')
     function sendAnswer (data, callback) {
       Answers.sendAnswer(data).then(function (res) {
         $scope.loading = false
-        AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.', 'danger')
+        AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
         if (callback) callback(res)
       }, function (err) {
         console.log(err)
@@ -70,6 +70,29 @@ angular.module('webAppApp')
         getAnswers()
         console.log(res)
       })
+    }
+
+    $scope.editQuestion = function () {
+      $scope.loading = true
+      var data = {}
+      _.assign(data, $scope.question)
+      if (data.tags) data.tags = _.map(data.tags, '_id')
+      console.log(data.tags);
+      Questions.edit(data).then(function (res) {
+        console.log(res);
+        AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
+        $scope.question = res.data
+        $scope.loading = false
+        $state.go('question', { id: res.data._id })
+      }, function (err) {
+        console.log(err)
+        $scope.loading = false
+        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
+      })
+    }
+
+    $scope.loadTags = function (query) {
+      return Tag.findAll()
     }
 
     init()

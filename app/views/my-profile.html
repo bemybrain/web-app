@@ -22,7 +22,6 @@
         </div>
         <div class="form-group">
           <label>Tags de interesse</label>
-          <!-- <textarea ng-model="profile.interests" rows="3" class="form-control" placeholder="Separe as tags por linhas" name="interests" ng-list="&#10;" ng-trim="false"></textarea> -->
           <tags-input ng-model="profile.tags" display-property="name" add-from-autocomplete-only="true">
             <auto-complete source="loadTags($query)"></auto-complete>
           </tags-input>

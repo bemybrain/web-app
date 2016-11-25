@@ -17,7 +17,9 @@
         </div>
         <div class="form-group">
           <label>Tags</label>
-          <textarea ng-model="newQuestion.tags" rows="3" class="form-control" placeholder="Separe as tags por linhas" name="tags" ng-list="&#10;" ng-trim="false"></textarea>
+          <tags-input ng-model="newQuestion.tags" display-property="name" add-from-autocomplete-only="true">
+            <auto-complete source="loadTags($query)"></auto-complete>
+          </tags-input>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-success btn-lg btn-block">Enviar</button><br></br>

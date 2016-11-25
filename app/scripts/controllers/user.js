@@ -42,7 +42,6 @@ angular.module('webAppApp')
     }
 
     $scope.loadTags = function (query) {
-      console.log(query);
       return Tag.findAll()
     }
 
