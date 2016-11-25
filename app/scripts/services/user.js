@@ -31,7 +31,7 @@ angular.module('webAppApp')
             name: data.name,
             username: data.username,
             email: data.email,
-            interests: data.interests
+            tags: data.tags
           }
         })
       }

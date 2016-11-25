@@ -21,8 +21,8 @@
           <li class="dropdown" ng-if="isLoggedIn()">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></a>
             <ul class="dropdown-menu">
-              <li><a ui-sref="main.myprofile">Meu perfil</a></li>
               <li><a ui-sref="main.questions({ userId: 'my-questions' })">Minhas perguntas</a></li>
+              <li><a ui-sref="main.myprofile">Meu perfil</a></li>
               <li role="separator" class="divider"></li>
               <li><a ui-sref="logout">Sair</a></li>
             </ul>

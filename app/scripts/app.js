@@ -13,7 +13,12 @@ angular
     'ngAnimate',
     'ngCookies',
     'ngTouch',
-    'ui.router'
+    'ui.router',
+    'ngTagsInput',
+    'ngDialog',
+    'ngAnimate',
+    'mgcrea.ngStrap',
+    'ngLodash'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -38,7 +43,7 @@ angular
         controller: 'MainCtrl'
       })
       .state('main.questions', {
-        url: '/questions/:userId',
+        url: '/questions?userId',
         templateUrl: 'views/questions.html',
         controller: 'QuestionsCtrl'
       })

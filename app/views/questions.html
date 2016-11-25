@@ -5,7 +5,18 @@
     <div class="col-md-8">
       <div class="panel panel-default question-item" ng-repeat="question in questions | orderBy : date : true | filter : query">
         <div class="panel-body">
-          <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }} - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
+          <div class="row">
+            <div class="col-xs-11">
+              <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }} - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
+            </div>
+            <div class="col-xs-1 text-center" ng-if="userInfo._id === question.author._id">
+              <a href="" bs-dropdown aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href><i class="fa fa-pencil" aria-hidden="true"></i> Editar pergunta</a></li>
+                <li><a href ng-click="confirmDelete(question._id)"><i class="fa fa-trash-o" aria-hidden="true"></i> Excluir pergunta</a></li>
+              </ul>
+            </div>
+          </div>
           <h3><a class="color-1" ui-sref="main.question({ id: question._id })">{{ question.title }}</a></h3>
           <p ng-if="question.body">{{ question.body | limitTo : 200 }} [...]</p>
           <div class="row">

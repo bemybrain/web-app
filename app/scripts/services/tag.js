@@ -1,45 +1,43 @@
-'use strict'
+'use strict';
 
 /**
  * @ngdoc service
- * @name webAppApp.Questions
+ * @name webAppApp.Tag
  * @description
- * # Questions
- * Factory in the webAppApp.
+ * # Tag
+ * Service in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('Questions', function (ENV, $http) {
+  .factory('Tag', function (ENV, $http) {
     // Public API here
     return {
       create: function (data) {
         return $http({
           method: 'POST',
-          url: ENV.apiEndpoint + '/questions',
+          url: ENV.apiEndpoint + '/tags',
           data: {
-            title: data.title,
-            body: data.body,
-            author: data.author,
-            tags: data.tags
+            name: data.name,
+            related: data.related || []
           }
         })
       },
       findAll: function (params) {
         return $http({
           method: 'GET',
-          url: ENV.apiEndpoint + '/questions',
+          url: ENV.apiEndpoint + '/tags',
           params: params || {}
         })
       },
       findOne: function (id) {
         return $http({
           method: 'GET',
-          url: ENV.apiEndpoint + '/questions/' + id
+          url: ENV.apiEndpoint + '/tags/' + id
         })
       },
       delete: function (id) {
         return $http({
           method: 'DELETE',
-          url: ENV.apiEndpoint + '/questions/' + id
+          url: ENV.apiEndpoint + '/tags/' + id
         })
       }
     }

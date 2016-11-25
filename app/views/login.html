@@ -32,7 +32,7 @@
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                          <button type="submit" class="btn btn-success btn-lg">Login</button><br></br>
+                          <button type="submit" ng-disabled="loading" class="btn btn-success btn-lg">Login</button><br></br>
                         </div>
                     </div>
                 </form>
@@ -83,7 +83,7 @@
           <br>
           <div class="row">
             <div class="form-group col-xs-12">
-              <button class="btn btn-success btn-lg" type="submit">Cadastrar</button><br></br>
+              <button ng-disabled="loading" class="btn btn-success btn-lg" type="submit">Cadastrar</button><br></br>
               <p><small>Já é Cadastrado? <a ui-sref="login">Clique Aqui</a></small></p>
             </div>
           </div>

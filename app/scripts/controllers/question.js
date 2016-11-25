@@ -8,12 +8,16 @@
  * Controller of the webAppApp
  */
 angular.module('webAppApp')
-  .controller('QuestionCtrl', function ($scope, $stateParams, Questions, Answers, User, AuthenticationService) {
+  .controller('QuestionCtrl', function ($scope, $stateParams, Questions, Answers, User, AuthenticationService, AlertMessage) {
     $scope.newAnswer = {}
+    $scope.loading = false
 
-    getQuestion($stateParams.id, function () {
-      getAnswers()
-    })
+    function init () {
+      getQuestion($stateParams.id, function () {
+        getAnswers()
+      })
+    }
+
 
     function getQuestion (id, callback) {
       if (!id) id = $stateParams.id
@@ -22,7 +26,7 @@ angular.module('webAppApp')
         if (callback) callback(res)
       }, function (err) {
         console.log(err)
-        if (callback) callback()
+        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
       })
     }
 
@@ -30,20 +34,22 @@ angular.module('webAppApp')
       if (!questionID) questionID = $scope.question._id
       Answers.findByQuestion(questionID).then(function (res) {
         $scope.answers = res.data
-        console.log(res.data)
         if (callback) callback(res)
       }, function (err) {
         console.log(err)
-        if (callback) callback()
+        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
       })
     }
 
     function sendAnswer (data, callback) {
       Answers.sendAnswer(data).then(function (res) {
+        $scope.loading = false
+        AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.', 'danger')
         if (callback) callback(res)
       }, function (err) {
         console.log(err)
-        if (callback) callback()
+        $scope.loading = false
+        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
       })
     }
 
@@ -52,6 +58,7 @@ angular.module('webAppApp')
     }
 
     $scope.sendAnswer = function () {
+      $scope.loading = true
       var currentUser = AuthenticationService.getUserInfo()
       var data = {
         body: $scope.newAnswer.body,
@@ -65,10 +72,5 @@ angular.module('webAppApp')
       })
     }
 
-    $scope.teste = function () {
-      AuthenticationService.isAuthenticated().then(function (res) {
-        console.log(res)
-      })
-    }
-
+    init()
   })

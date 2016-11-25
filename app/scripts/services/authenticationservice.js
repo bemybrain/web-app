@@ -18,6 +18,7 @@ angular.module('webAppApp')
         username: username,
         password: password
       }).then(function (result) {
+        console.log(result);
         userInfo = result.data
         $cookies.put('userInfo', JSON.stringify(userInfo))
         deferred.resolve(userInfo)
@@ -38,7 +39,7 @@ angular.module('webAppApp')
         email: userData.email
       }).then(function (result) {
         userInfo = result.data
-        $cookies.put('userInfo', JSON.stringify(userInfo))
+        setUserInfo(userInfo)
         deferred.resolve(userInfo)
       }, function (error) {
         console.log(error)
@@ -66,6 +67,11 @@ angular.module('webAppApp')
     }
 
     function getUserInfo () {
+      return userInfo
+    }
+
+    function setUserInfo (data) {
+      $cookies.put('userInfo', JSON.stringify(data))
       return userInfo
     }
 
@@ -104,6 +110,7 @@ angular.module('webAppApp')
       signup: signup,
       login: login,
       getUserInfo: getUserInfo,
+      setUserInfo: setUserInfo,
       isLoggedIn: isLoggedIn,
       isAuthenticated: isAuthenticated,
       logout: logout
