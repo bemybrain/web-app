@@ -22,7 +22,7 @@ angular.module('webAppApp')
         AuthenticationService.signup(userData).then(function (data) {
           $scope.loading = false
           $scope.getUserInfo()
-          $state.go('myprofile')
+          $state.go('main.myprofile')
         })
       }
     }

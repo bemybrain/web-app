@@ -83,7 +83,7 @@ angular.module('webAppApp')
         AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
         $scope.question = res.data
         $scope.loading = false
-        $state.go('question', { id: res.data._id })
+        $state.go('main.question', { id: res.data._id })
       }, function (err) {
         console.log(err)
         $scope.loading = false
