@@ -83,6 +83,11 @@ angular
           logout: logout
         }
       })
+      .state('main.dashboard', {
+        url: '/dashboard',
+        controller: 'DashboardCtrl',
+        templateUrl: 'views/dashboard.html',
+      })
   })
   .run(['$rootScope', '$state', function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
