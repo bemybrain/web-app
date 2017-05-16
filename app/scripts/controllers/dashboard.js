@@ -33,7 +33,7 @@ angular.module('webAppApp')
 
     }
 
-    $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    $scope.labels = ['Java', 'Ruby', 'Biologia'];
     $scope.series = ['Series A', 'Series B'];
 
     $scope.data = [

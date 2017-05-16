@@ -18,7 +18,8 @@ angular
     'ngDialog',
     'ngAnimate',
     'mgcrea.ngStrap',
-    'ngLodash'
+    'ngLodash',
+    'chart.js'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
