@@ -17,14 +17,14 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Usuário</label>
-                            <input ng-model="login.username" type="text" class="form-control" placeholder="Usuário" id="user" required data-validation-required-message="Por favor digite um nome de Usuário.">
+                            <input ng-disabled="loading" ng-model="login.username" type="text" class="form-control" placeholder="Usuário" id="user" required data-validation-required-message="Por favor digite um nome de Usuário.">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Senha</label>
-                            <input ng-model="login.password" class="form-control" type="password" placeholder="Senha" id="password" required data-validation-required-message="Por favor digite uma Senha."></textarea>
+                            <input ng-disabled="loading" ng-model="login.password" class="form-control" type="password" placeholder="Senha" id="password" required data-validation-required-message="Por favor digite uma Senha."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -53,37 +53,32 @@
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Nome</label>
-              <input type="text" class="form-control" placeholder="Nome" name="name" ng-model="newUser.name" required>
-
-              <p ng-if="signupForm.name.$error && signupForm.$submitted" class="help-block text-danger">Por favor digite seu Nome</p>
+              <input ng-disabled="loading" type="text" class="form-control" placeholder="Nome" name="name" ng-model="newUser.name" required>
             </div>
           </div>
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Email</label>
-              <input type="email" class="form-control" placeholder="Email" name="email" ng-model="newUser.email" required>
-              <p ng-if="signupForm.email.$error && signupForm.$submitted" class="help-block text-danger">Por favor digite seu endereço de Email.</p>
+              <input ng-disabled="loading" type="email" class="form-control" placeholder="Email" name="email" ng-model="newUser.email" required>
             </div>
           </div>
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Usuário</label>
-              <input type="text" class="form-control" placeholder="Usuário" name="username" ng-model="newUser.username" required>
-              <p ng-if="signupForm.username.$error && signupForm.$submitted" class="help-block text-danger">Por favor digite um nome de Usuário.</p>
+              <input ng-disabled="loading" type="text" class="form-control" placeholder="Usuário" name="username" ng-model="newUser.username" required>
             </div>
           </div>
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Senha</label>
-              <input class="form-control" type="password" placeholder="Senha" name="password" ng-model="newUser.password" required>
-              <p ng-if="signupForm.password.$error && signupForm.$submitted" class="help-block text-danger">Por favor digite uma Senha.</p>
+              <input ng-disabled="loading" class="form-control" type="password" placeholder="Senha" name="password" ng-model="newUser.password" required>
             </div>
           </div>
 
           <br>
           <div class="row">
             <div class="form-group col-xs-12">
-              <button ng-disabled="loading" class="btn btn-success btn-lg" type="submit">Cadastrar</button><br></br>
+              <button ng-disabled="loading || !signupForm.$valid" class="btn btn-success btn-lg" type="submit">Cadastrar</button><br></br>
               <p><small>Já é Cadastrado? <a ui-sref="login">Clique Aqui</a></small></p>
             </div>
           </div>
