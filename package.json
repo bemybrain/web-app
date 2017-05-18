@@ -34,7 +34,6 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "angular-ui-router": "^0.3.0",
-    "compass": "^0.1.1"
+    "angular-ui-router": "^0.3.0"
   }
 }

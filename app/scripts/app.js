@@ -18,7 +18,8 @@ angular
     'ngDialog',
     'ngAnimate',
     'mgcrea.ngStrap',
-    'ngLodash'
+    'ngLodash',
+    'chart.js'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -82,6 +83,11 @@ angular
         resolve: {
           logout: logout
         }
+      })
+      .state('main.dashboard', {
+        url: '/dashboard',
+        controller: 'DashboardCtrl',
+        templateUrl: 'views/dashboard.html',
       })
   })
   .run(['$rootScope', '$state', function ($rootScope, $state) {

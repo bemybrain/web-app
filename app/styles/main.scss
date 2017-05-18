@@ -20,6 +20,20 @@ $color-3: #18bc9c;
 html, body {
   height: 100%;
   position: relative;
+  padding-top: 70px;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.media__image {
+  max-width: 20%;
+}
+
+.mycontent-left {
+  border-right: 1px dashed #333;
 }
 
 p {}

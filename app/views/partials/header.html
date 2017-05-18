@@ -1,6 +1,6 @@
 
 <header class="main-header">
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default   navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -17,6 +17,7 @@
           <li class="hidden"><a href="#page-top"></a></li>
           <li class="page-scroll"><a ui-sref="main.home">Sobre</a></li>
           <li><a ui-sref="main.questions" ui-sref-opts="{reload: true, inherit: false}">Perguntas</a></li>
+          <li><a ui-sref="main.dashboard" ui-sref-opts="{reload: true, inherit: false}">Dashboard</a></li>
           <li ng-if="!isLoggedIn()"><a ui-sref="main.login">Login/Cadastro</a></li>
           <li class="dropdown" ng-if="isLoggedIn()">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></a>

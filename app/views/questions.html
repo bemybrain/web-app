@@ -35,19 +35,18 @@
     </div>
 
     <!-- Blog Sidebar Widgets Column -->
-    <div class="col-md-4">
+    <div class="container">
       <!-- Blog Search Well -->
-      <div class="well">
         <h4>Pesquise</h4>
+        <br>
         <div class="input-group">
-          <input type="text" class="form-control" ng-model="query">
+          <input type="text" class="form-control" ng-model="query" placeholder="Ex: Métodos em java...">
           <span class="input-group-btn">
             <button class="btn btn-primary" type="button" ng-click="search(query)">
               <span class="glyphicon glyphicon-search"></span>
             </button>
           </span>
         </div>
-      </div>
       <div ng-include="'/views/partials/sidebar.html'"></div>
     </div>
 
