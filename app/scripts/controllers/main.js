@@ -8,7 +8,7 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService) {
+  .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService, AlertMessage) {
 
     $scope.userInfo = AuthenticationService.getUserInfo() || null
     $scope.currentState = $state.current.name
@@ -16,14 +16,27 @@ angular.module('webAppApp')
     $scope.loading = false
 
     $scope.signup = function (userData) {
-      $scope.loading = true
       if (!userData) var userData = $scope.newUser
       if (userData.name && userData.email && userData.username && userData.password) {
-        AuthenticationService.signup(userData).then(function (data) {
-          $scope.loading = false
-          $scope.getUserInfo()
-          $state.go('main.myprofile')
-        })
+        $scope.loading = true
+        AuthenticationService.signup(userData)
+          .then(function (data) {
+            if (data._id) {
+              $scope.getUserInfo()
+              $state.go('main.myprofile')
+              AlertMessage.show('Usuário cadastrado com sucesso!', '', 'success')
+            }
+          })
+          .catch(function (err) {
+            if (err.status === 401) {
+              AlertMessage.show('Usuário já existente.', 'Faça login ou tente novamente com informações diferentes.', 'warning')
+            } else {
+              AlertMessage.show('Algo de errado não está certo.', 'Tente novamente.', 'warning')
+            }
+          })
+          .finally(function () {
+            $scope.loading = false
+          })
       }
     }
 
@@ -32,11 +45,26 @@ angular.module('webAppApp')
       var username = username || $scope.login.username
       var password = password || $scope.login.password
 
-      AuthenticationService.login(username, password).then(function (data) {
-        $scope.loading = false
-        $scope.getUserInfo()
-        $state.go('main.questions')
-      })
+      AuthenticationService.login(username, password)
+        .then(function (data) {
+          $scope.getUserInfo()
+          $state.go('main.questions')
+          if (data._id) {
+            var msg = 'Login efetuado com sucesso!'
+            if (data.name) {
+              msg = 'Bem vindo novamente, ' + data.name + '!'
+            }
+            AlertMessage.show(msg, '', 'success')
+          }
+        })
+        .catch(function (err) {
+          if (err.status === 401) {
+            AlertMessage.show('Usuário ou senha incorretos.', 'Tente novamente.', 'warning')
+          }
+        })
+        .finally(function () {
+          $scope.loading = false
+        })
     }
 
     $scope.logout = function () {
