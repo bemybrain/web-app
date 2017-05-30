@@ -10,10 +10,12 @@
 angular.module('webAppApp')
   .controller('QuestionsCtrl', function ($scope, $state, $stateParams, Questions, User, AuthenticationService, AlertMessage) {
 
-    function init () {
-      var userId = $stateParams.userId || null
-      var questionsParams = {}
+    var userId = $stateParams.userId || null
+    var questionsParams = {}
+    $scope.questions = []
+    $scope.loading = false
 
+    function init () {
       if (userId) {
         if (userId === 'my-questions') userId = AuthenticationService.getUserInfo()._id
         questionsParams.author = userId
@@ -23,30 +25,54 @@ angular.module('webAppApp')
     }
 
     function getQuestions (params, callback) {
-      Questions.findAll(params).then(function (res) {
-        $scope.questions = res.data
-        if (callback) callback()
-      }, function (err) {
-        console.log(err)
-        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
-      })
+      $scope.loading = true
+      Questions.findAll(params)
+        .then(function (res) {
+          $scope.questions = res.data
+          if (callback) callback()
+        })
+        .catch(handleErr)
+        .finally(function () {
+          $scope.loading = false
+        })
     }
 
     function deleteQuestion (id) {
       if (!id) return false
-      Questions.delete(id).then(function (res) {
-        init()
-        AlertMessage.show('Feito!', 'Pergunta apagada com sucesso.')
-      }, function (err) {
-        console.log(err)
-        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
-      })
+      Questions.delete(id)
+        .then(function (res) {
+          init()
+          AlertMessage.show('Feito!', 'Pergunta apagada com sucesso.')
+        })
+        .catch(handleErr)
     }
 
     $scope.confirmDelete = function (id) {
       AlertMessage.confirm('delete-question', function () {
         deleteQuestion(id)
       })
+    }
+
+    $scope.loadMore = function () {
+      $scope.loading = true
+      var params = _.assign({}, questionsParams, {
+        skip: $scope.questions.length
+      })
+      Questions.findAll(params)
+        .then(function (res) {
+          _.map(res.data, function (question) {
+            $scope.questions.push(question)
+          })
+        })
+        .catch(handleErr)
+        .finally(function ( ) {
+          $scope.loading = false
+        })
+    }
+
+    function handleErr (err) {
+      console.log(err)
+      AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
     }
 
     init()
