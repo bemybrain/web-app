@@ -65,7 +65,7 @@ angular.module('webAppApp')
         author: currentUser._id,
         question: $scope.question._id
       }
-      sendAnswer(data, function (res) {
+      sendAnswer(data, function () {
         getAnswers()
         $scope.newAnswer = {}
         $scope.loading = false
