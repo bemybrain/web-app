@@ -22,7 +22,7 @@
           </tags-input>
         </div>
         <div class="form-group">
-          <button ng-disabled="newQuestionForm.$invalid" type="submit" class="btn btn-success btn-lg btn-block">Enviar</button><br></br>
+          <button ng-disabled="!newQuestionForm.$valid || loading" type="submit" class="btn btn-success btn-lg btn-block">Enviar</button><br></br>
         </div>
       </form>
     </div>

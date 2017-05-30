@@ -30,15 +30,17 @@ angular.module('webAppApp')
       data.email = data.email || $scope.profile.email
       data.tags = data.tags || $scope.profile.tags
       if (data.tags) data.tags = _.map(data.tags, '_id')
-      User.update(id, data).then(function (res) {
-        $scope.loading = false
-        AuthenticationService.setUserInfo(res.data)
-        AlertMessage.show('Usuário alterado com sucesso!')
-      }, function (err) {
-        $scope.loading = false
-        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
-        console.log(err)
-      })
+      User.update(id, data)
+        .then(function (res) {
+          AuthenticationService.setUserInfo(res.data)
+          AlertMessage.show('Usuário alterado com sucesso!')
+        })
+        .catch(function (err) {
+          AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
+        })
+        .finally(function (err) {
+          $scope.loading = false
+        })
     }
 
     $scope.loadTags = function (query) {

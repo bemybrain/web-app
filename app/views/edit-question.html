@@ -22,7 +22,7 @@
           </tags-input>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-success btn-lg btn-block">Salvar</button><br></br>
+          <button type="submit" class="btn btn-success btn-lg btn-block" ng-disabled="!editQuestionForm.$valid || loading">Salvar</button><br></br>
         </div>
       </form>
     </div>

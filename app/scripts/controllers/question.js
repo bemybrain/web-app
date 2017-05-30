@@ -42,15 +42,15 @@ angular.module('webAppApp')
     }
 
     function sendAnswer (data, callback) {
-      Answers.sendAnswer(data).then(function (res) {
-        $scope.loading = false
-        AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
-        if (callback) callback(res)
-      }, function (err) {
-        console.log(err)
-        $scope.loading = false
-        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
-      })
+      Answers.sendAnswer(data)
+        .then(function (res) {
+          AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
+        })
+        .catch(function (err) {
+          console.log(err)
+          AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
+        })
+        .finally(callback)
     }
 
     $scope.isLoggedIn = function () {
@@ -66,9 +66,9 @@ angular.module('webAppApp')
         question: $scope.question._id
       }
       sendAnswer(data, function (res) {
-        $scope.newAnswer = {}
         getAnswers()
-        console.log(res)
+        $scope.newAnswer = {}
+        $scope.loading = false
       })
     }
 
@@ -77,18 +77,19 @@ angular.module('webAppApp')
       var data = {}
       _.assign(data, $scope.question)
       if (data.tags) data.tags = _.map(data.tags, '_id')
-      console.log(data.tags);
-      Questions.edit(data).then(function (res) {
-        console.log(res);
-        AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
-        $scope.question = res.data
-        $scope.loading = false
-        $state.go('main.question', { id: res.data._id })
-      }, function (err) {
-        console.log(err)
-        $scope.loading = false
-        AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
-      })
+      Questions.edit(data)
+        .then(function (res) {
+          AlertMessage.show('Pronto!', 'Resposta enviada com sucesso.')
+          _.assign($scope.question, res.data)
+          $state.go('main.question', { id: res.data._id })
+        })
+        .catch(function (err) {
+          console.log(err)
+          AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
+        })
+        .finally(function () {
+          $scope.loading = false
+        })
     }
 
     $scope.loadTags = function (query) {
