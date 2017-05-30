@@ -10,14 +10,22 @@
 angular.module('webAppApp')
   .controller('QuestionCtrl', function ($scope, $state, $stateParams, Questions, Answers, User, AuthenticationService, AlertMessage, Tag) {
     $scope.newAnswer = {}
+    $scope.tags = []
     $scope.loading = false
 
     function init () {
+      getTags()
       getQuestion($stateParams.id, function () {
         getAnswers()
       })
     }
 
+    function getTags () {
+      Tag.findAll()
+        .then(function (res) {
+          $scope.tags = res.data
+        })
+    }
 
     function getQuestion (id, callback) {
       if (!id) id = $stateParams.id
@@ -93,7 +101,9 @@ angular.module('webAppApp')
     }
 
     $scope.loadTags = function (query) {
-      return Tag.findAll()
+      return _.filter($scope.tags, function (tag) {
+        return tag.name.toUpperCase().includes(query.toUpperCase())
+      })
     }
 
     init()

@@ -10,7 +10,19 @@
 angular.module('webAppApp')
   .controller('NewQuestionCtrl', function ($scope, $state, Questions, User, AuthenticationService, Tag) {
     $scope.newQuestion = {}
+    $scope.tags = []
     $scope.loading = false
+
+    function init () {
+      getTags()
+    }
+
+    function getTags () {
+      Tag.findAll()
+        .then(function (res) {
+          $scope.tags = res.data
+        })
+    }
 
     $scope.isLoggedIn = function () {
       return AuthenticationService.isLoggedIn()
@@ -39,7 +51,11 @@ angular.module('webAppApp')
     }
 
     $scope.loadTags = function (query) {
-      return Tag.findAll()
+      return _.filter($scope.tags, function (tag) {
+        return tag.name.toUpperCase().includes(query.toUpperCase())
+      })
     }
+
+    init()
 
   })
