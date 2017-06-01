@@ -36,8 +36,28 @@ angular.module('webAppApp')
     $scope.labels = ['Java', 'Ruby', 'Biologia'];
 
     $scope.data = [
-      [65, 59, 80, 81, 56, 55, 40]
+      [65, 59, 80]
     ];
+
+    $scope.dataset = {
+      
+    }
+
+    $scope.options = {
+      scales: {
+       xAxes: [{
+         gridLines: { display: false }
+       }],
+
+       yAxes: [{
+         gridLines: { display:false }
+       }]
+     },
+    }
+
+    $scope.hover = {
+
+    }
 
     init()
 })
