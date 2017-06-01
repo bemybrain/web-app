@@ -25,7 +25,7 @@ angular.module('webAppApp')
       }
       Questions.create(data).then(function (res) {
         console.log(res)
-        $state.go('question', { id: res.data._id })
+        $state.go('main.question', { id: res.data._id })
       }, function (err) {
         console.log(err)
       })

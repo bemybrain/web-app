@@ -18,7 +18,6 @@ angular.module('webAppApp')
         username: username,
         password: password
       }).then(function (result) {
-        console.log(result);
         userInfo = result.data
         $cookies.put('userInfo', JSON.stringify(userInfo))
         deferred.resolve(userInfo)
