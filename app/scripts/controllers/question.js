@@ -9,9 +9,12 @@
  */
 angular.module('webAppApp')
   .controller('QuestionCtrl', function ($scope, $state, $stateParams, Questions, Answers, User, AuthenticationService, AlertMessage, Tag) {
+    var currentUser = AuthenticationService.getUserInfo()
+
     $scope.newAnswer = {}
     $scope.tags = []
     $scope.loading = false
+    $scope.isAuthor = false
 
     function init () {
       getTags()
@@ -31,6 +34,7 @@ angular.module('webAppApp')
       if (!id) id = $stateParams.id
       Questions.findOne(id).then(function (res) {
         $scope.question = res.data
+        $scope.isAuthor = currentUser._id === $scope.question.author._id
         if (callback) callback(res)
       }, function (err) {
         console.log(err)
@@ -104,6 +108,10 @@ angular.module('webAppApp')
       return _.filter($scope.tags, function (tag) {
         return tag.name.toUpperCase().includes(query.toUpperCase())
       })
+    }
+
+    $scope.isAuthorsChoice = function (answer) {
+      return answer.upvotes.indexOf($scope.question.author._id) !== -1
     }
 
     init()
