@@ -3,7 +3,7 @@
     <button class="btn" ng-class="{ 'btn-link': !hasVoted('up'), 'btn-success': hasVoted('up') }" ng-click="upvote()" title="">
       <i class="glyphicon glyphicon-chevron-up"></i>
     </button>
-    <a disabled class="btn btn-default">{{ provider.upvotes.length - provider.downvotes.length }}</a>
+    <a disabled class="btn btn-default">{{ provider.score }}</a>
     <button class="btn" ng-class="{ 'btn-link': !hasVoted('down'), 'btn-danger': hasVoted('down') }" ng-click="downvote()">
       <i class="glyphicon glyphicon-chevron-down"></i>
     </button>

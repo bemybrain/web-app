@@ -3,7 +3,7 @@
 
     <!-- Blog Entries Column -->
     <div class="col-md-8">
-      <div class="panel panel-default question-item" ng-repeat="question in questions | orderBy : ['-upvotes', 'downvotes', '-date'] | filter : query">
+      <div class="panel panel-default question-item" ng-repeat="question in questions | orderBy : ['-score', '-date'] | filter : query">
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-11">

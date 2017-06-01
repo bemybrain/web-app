@@ -30,7 +30,7 @@
       <!-- Comment -->
       <div class="answer-list" ng-if="question._id && answers.length">
         <h3>Melhores respostas:</h3>
-        <div class="panel panel-default media" ng-repeat="answer in answers | orderBy : ['-upvotes', 'downvotes', '-date']">
+        <div class="panel panel-default media" ng-repeat="answer in answers | orderBy : ['-score', '-date']">
           <div class="panel-body">
             <vote-box answer="answer" class="pull-right"></vote-box>
             <div class="media-body">

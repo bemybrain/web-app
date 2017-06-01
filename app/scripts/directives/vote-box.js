@@ -55,6 +55,7 @@ angular.module('webAppApp')
             }
             provider.upvotes.push(userId)
           }
+          provider.score = provider.upvotes.length - provider.downvotes.length
         }
 
         function handleDownvote () {
@@ -70,6 +71,7 @@ angular.module('webAppApp')
             }
             provider.downvotes.push(userId)
           }
+          provider.score = provider.upvotes.length - provider.downvotes.length
         }
 
         function upvote () {
