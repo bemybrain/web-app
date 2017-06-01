@@ -60,6 +60,8 @@ angular.module('webAppApp')
         .catch(function (err) {
           if (err.status === 401) {
             AlertMessage.show('Usuário ou senha incorretos.', 'Tente novamente.', 'warning')
+          } else {
+            AlertMessage.show('Algo de errado não está certo.', 'Tente novamente.', 'warning')
           }
         })
         .finally(function () {
