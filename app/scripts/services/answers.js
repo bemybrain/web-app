@@ -40,6 +40,18 @@ angular.module('webAppApp')
             question: data.question
           }
         })
+      },
+      upvote: function (id) {
+        return $http({
+          method: 'PUT',
+          url: ENV.apiEndpoint + '/answers/' + id + '/upvote'
+        })
+      },
+      downvote: function (id) {
+        return $http({
+          method: 'PUT',
+          url: ENV.apiEndpoint + '/answers/' + id + '/downvote'
+        })
       }
     }
   })

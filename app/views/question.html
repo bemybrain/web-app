@@ -10,7 +10,8 @@
       </ol>
 
       <!-- Title -->
-      <article class="main-section question-detail">
+      <article class="main-section question-detail" ng-if="question._id">
+        <vote-box question="question" class="pull-right"></vote-box>
         <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }} - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
         <h2>{{ question.title }}</h2>
         <br>
@@ -31,12 +32,11 @@
         <h3>Melhores respostas:</h3>
         <div class="panel panel-default media" ng-repeat="answer in answers | orderBy : date : true">
           <div class="panel-body">
-            <a class="pull-left" href="#">
-              <img src="images\beMyBrainLogo.png" width="64px" height="64px"></img>
-            </a>
+            <vote-box answer="answer" class="pull-right"></vote-box>
             <div class="media-body">
+              <img src="images\beMyBrainLogo.png" width="64px" height="64px" class="pull-left" style="margin-right: 10px;" ></img>
               <h4 class="media-heading">{{ answer.author.name || answer.author.username || 'Usuário' }}<small> Postado em {{ answer.date | date : 'dd MMM yyyy, h:mm a' }}</small></h4>
-              {{ answer.body }}
+              <p>{{ answer.body }}</p>
             </div>
           </div>
         </div>

@@ -53,6 +53,18 @@ angular.module('webAppApp')
           method: 'DELETE',
           url: ENV.apiEndpoint + '/questions/' + id
         })
+      },
+      upvote: function (id) {
+        return $http({
+          method: 'PUT',
+          url: ENV.apiEndpoint + '/questions/' + id + '/upvote'
+        })
+      },
+      downvote: function (id) {
+        return $http({
+          method: 'PUT',
+          url: ENV.apiEndpoint + '/questions/' + id + '/downvote'
+        })
       }
     }
   })
