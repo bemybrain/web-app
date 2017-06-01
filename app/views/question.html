@@ -34,7 +34,7 @@
           <div class="panel-body">
             <vote-box answer="answer" class="pull-right"></vote-box>
             <div class="media-body">
-              <img src="images\beMyBrainLogo.png" width="64px" height="64px" class="pull-left" style="margin-right: 10px;" ></img>
+              <img src="images/beMyBrainLogo.png" width="64px" height="64px" class="pull-left" style="margin-right: 10px;" ></img>
               <h4 class="media-heading">{{ answer.author.name || answer.author.username || 'Usuário' }} <small ng-if="isAuthorsChoice(answer)"><i class="glyphicon glyphicon-star"></i> Escolha do autor</small></h4>
               <p><small>Postado em {{ answer.date | date : 'dd MMM yyyy, h:mm a' }}</small></p>
               <p>{{ answer.body }}</p>
