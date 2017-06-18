@@ -8,55 +8,74 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('DashboardCtrl', function ($scope, $state, Questions, User, AuthenticationService, Tag) {
+  .controller('DashboardCtrl', function ($scope, $state, AuthenticationService, AlertMessage, Dashboard, Tag) {
 
     var user = AuthenticationService.getUserInfo()
+    var tags = []
+    var chart = {
+      labels: [],
+      data: [],
+      options: {
+        scales: {
+         xAxes: [{
+           gridLines: { display: false }
+         }],
+         yAxes: [{
+           gridLines: { display:false }
+         }]
+       },
+      }
+    }
 
     function init () {
-      console.log(user);
       $scope.user = user
+      $scope.chart = chart
+
+      if (user && user._id) {
+        getTags()
+          .then(function () {
+            getDashboard(user._id)
+            getRankRules(user._id)
+          }, handleErr)
+      }
     }
 
-    $scope.isLoggedIn = function () {
-      return AuthenticationService.isLoggedIn()
+    function getTags () {
+      return Tag.findAll()
+        .then(function (res) {
+          tags = res.data
+          return tags
+        })
     }
 
-    $scope.countAswers = function () {
-
+    function getRankRules () {
+      Dashboard.getRules().then(function (res) {
+        $scope.rankRules = res.data
+      }, handleErr)
     }
 
-    $scope.countUpvotes = function () {
-
+    function getDashboard (userId) {
+      Dashboard.get(userId).then(setDashboard, handleErr)
     }
 
-    $scope.getTitle = function (title) {
-
+    function setDashboard (res) {
+      $scope.dashboard = res.data
+      setChart(res.data)
     }
 
-    $scope.labels = ['Java', 'Ruby', 'Biologia'];
-
-    $scope.data = [
-      [65, 59, 80]
-    ];
-
-    $scope.dataset = {
-      
+    function setChart (data) {
+      chart.labels = _.map(data.tags, function (val, key) {
+        var tagIndex = _.findIndex(tags, { '_id': key })
+        return tags[tagIndex].name
+      })
+      chart.data = _.map(data.tags, function (val, key) {
+        return val
+      })
     }
 
-    $scope.options = {
-      scales: {
-       xAxes: [{
-         gridLines: { display: false }
-       }],
-
-       yAxes: [{
-         gridLines: { display:false }
-       }]
-     },
-    }
-
-    $scope.hover = {
-
+    function handleErr (err) {
+      console.log(err)
+      AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
     }
 
     init()
