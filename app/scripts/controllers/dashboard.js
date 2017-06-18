@@ -30,12 +30,13 @@ angular.module('webAppApp')
     function init () {
       $scope.user = user
       $scope.chart = chart
+      $scope.rankRules
 
       if (user && user._id) {
+        getRankRules()
         getTags()
           .then(function () {
             getDashboard(user._id)
-            getRankRules(user._id)
           }, handleErr)
       }
     }
@@ -51,6 +52,7 @@ angular.module('webAppApp')
     function getRankRules () {
       Dashboard.getRules().then(function (res) {
         $scope.rankRules = res.data
+        console.log($scope.rankRules);
       }, handleErr)
     }
 
