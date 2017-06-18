@@ -3,6 +3,19 @@
 
     <!-- Blog Entries Column -->
     <div class="col-md-8">
+      <section class="search-box">
+        <h4>Pesquise</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="query" placeholder="Ex: Métodos em java...">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" ng-click="search(query)">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div>
+        <br>
+      </section>
+
       <div class="panel panel-default question-item" ng-repeat="question in questions | orderBy : ['-score', '-date'] | filter : query">
         <div class="panel-body">
           <div class="row">
@@ -35,20 +48,7 @@
       <p class="text-center" ng-if="!loading"><button class="btn btn-success btn-block" ng-click="loadMore()">Carregar mais</button></p>
     </div>
 
-    <!-- Blog Sidebar Widgets Column -->
-    <div class="container">
-      <!-- Blog Search Well -->
-        <h4>Pesquise</h4>
-        <br>
-        <div class="input-group">
-          <input type="text" class="form-control" ng-model="query" placeholder="Ex: Métodos em java...">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" ng-click="search(query)">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </span>
-        </div>
-      <div ng-include="'/views/partials/sidebar.html'"></div>
-    </div>
+    <main-sidebar />
 
   </div>
+</div>

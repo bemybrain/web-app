@@ -1,0 +1,10 @@
+<div class="col-md-4">
+  <aside class="main-sidebar">
+    <h4>Descubra</h4>
+    <ul class="list-inline">
+      <li ng-repeat="tag in tags">
+        <a ui-sref="tag({ tagId: tag._id })" class="label label-default">{{ tag.name }}</a>
+      </li>
+    </ul>
+  </aside>
+</div>
