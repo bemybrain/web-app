@@ -48,7 +48,7 @@ angular.module('webAppApp')
       AuthenticationService.login(username, password)
         .then(function (data) {
           $scope.getUserInfo()
-          $state.go('main.questions')
+          $state.go('main.dashboard')
           if (data._id) {
             var msg = 'Login efetuado com sucesso!'
             if (data.name) {

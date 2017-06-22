@@ -15,6 +15,7 @@ angular.module('webAppApp')
     $scope.tags = []
     $scope.loading = false
     $scope.isAuthor = false
+    $scope.currentUser = currentUser
 
     function init () {
       getTags()

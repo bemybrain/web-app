@@ -184,3 +184,26 @@ hr.star-primary:after {
   bottom: 0;
   padding: 0 20px;
 }
+
+
+
+
+/**
+*
+* profile
+*
+**/
+
+.user-avatar {
+  float: left;
+  margin-right: 15px;
+  text-align: center;
+
+  .user-avatar-img {}
+  .user-avatar-medal {
+    position: relative;
+    z-index: 10;
+    margin-top: -45px;
+    display: inline-block;
+  }
+}

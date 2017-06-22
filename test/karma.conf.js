@@ -36,6 +36,12 @@ module.exports = function(config) {
       'bower_components/ng-lodash/build/ng-lodash.js',
       'bower_components/chart.js/dist/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
+      'bower_components/ng-emoji-picker/js/nanoscroller.min.js',
+      'bower_components/ng-emoji-picker/js/tether.min.js',
+      'bower_components/ng-emoji-picker/js/config.js',
+      'bower_components/ng-emoji-picker/js/util.js',
+      'bower_components/ng-emoji-picker/js/jquery.emojiarea.js',
+      'bower_components/ng-emoji-picker/js/emoji-picker.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

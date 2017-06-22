@@ -11,8 +11,6 @@ angular.module('webAppApp')
   .controller('UserCtrl', function ($scope, $state, User, AuthenticationService, Tag, AlertMessage) {
     $scope.profile = angular.copy(AuthenticationService.getUserInfo()) || {}
 
-    console.log($scope.profile);
-
     $scope.isLoggedIn = function () {
       return AuthenticationService.isLoggedIn()
     }
