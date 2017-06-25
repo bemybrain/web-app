@@ -23,13 +23,13 @@
             <div class="col-md-6 text-center medal-name">
 						  <!-- MEDAL IMAGE -->
               <img ng-src="../../images/rank/rank-{{ dashboard.rank }}.png" alt="MEDAL IMGAGE" class="center-block">
-              <h5 class="text-uppercase">{{ rankRules[dashboard.rank].type }} </h5>
+              <h5 class="text-uppercase">{{ dashboard.rules[dashboard.rank].type }} </h5>
             </div>
             <div class="col-md-6">
               <h5 class="text-uppercase">Próximo nível:</h5>
-              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= rankRules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + rankRules[dashboard.rank + 1].q }} Perguntas</span></p>
-              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= rankRules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + rankRules[dashboard.rank + 1].a }} Respostas</span></p>
-              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= rankRules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + rankRules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>
+              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
+              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= dashboard.rules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + dashboard.rules[dashboard.rank + 1].a }} Respostas</span></p>
+              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= dashboard.rules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + dashboard.rules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>
             </div>
             <br>
 					</div>

@@ -9,8 +9,8 @@
 */
 angular.module('webAppApp')
   .controller('DashboardCtrl', function ($scope, $state, AuthenticationService, AlertMessage, Dashboard, Tag) {
-
     var user = AuthenticationService.getUserInfo()
+    var dashboard = Dashboard.get()
     var tags = []
     var chart = {
       labels: [],
@@ -30,13 +30,12 @@ angular.module('webAppApp')
     function init () {
       $scope.user = user
       $scope.chart = chart
-      $scope.rankRules
+      $scope.dashboard = dashboard
 
       if (user && user._id) {
-        getRankRules()
         getTags()
           .then(function () {
-            getDashboard(user._id)
+            setDashboard(user._id)
           }, handleErr)
       }
     }
@@ -49,20 +48,11 @@ angular.module('webAppApp')
         })
     }
 
-    function getRankRules () {
-      Dashboard.getRules().then(function (res) {
-        $scope.rankRules = res.data
-        console.log($scope.rankRules);
+    function setDashboard (userId) {
+      return Dashboard.set(userId).then(function (data) {
+        console.log(data);
+        setChart(data)
       }, handleErr)
-    }
-
-    function getDashboard (userId) {
-      Dashboard.get(userId).then(setDashboard, handleErr)
-    }
-
-    function setDashboard (res) {
-      $scope.dashboard = res.data
-      setChart(res.data)
     }
 
     function setChart (data) {

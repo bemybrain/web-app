@@ -8,7 +8,7 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService, AlertMessage) {
+  .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService, AlertMessage, Dashboard) {
 
     $scope.userInfo = AuthenticationService.getUserInfo() || null
     $scope.currentState = $state.current.name
@@ -70,6 +70,7 @@ angular.module('webAppApp')
     }
 
     $scope.logout = function () {
+      Dashboard.reset()
       AuthenticationService.logout()
     }
 

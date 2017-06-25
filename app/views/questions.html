@@ -45,7 +45,9 @@
           </div>
         </div>
       </div>
+      <h3 class="text-center" ng-if="!questions.length">Ninguém perguntou ainda!</h3>
       <p class="text-center" ng-if="!loading"><button class="btn btn-success btn-block" ng-click="loadMore()">Carregar mais</button></p>
+      <br>
     </div>
 
     <main-sidebar />
