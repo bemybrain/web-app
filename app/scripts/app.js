@@ -115,7 +115,8 @@ function isAuthenticated ($q, AuthenticationService) {
   }
 }
 
-function logout ($q, AuthenticationService, $state) {
+function logout ($q, AuthenticationService, $state, Dashboard) {
+  Dashboard.reset()
   AuthenticationService.logout().then(function () {
     $state.go('main.login', {}, { reload: true })
   })

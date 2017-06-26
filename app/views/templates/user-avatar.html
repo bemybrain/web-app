@@ -1,4 +1,10 @@
 <figure class="user-avatar">
-  <img class="user-avatar-img" src="images/beMyBrainLogo.png" width="64" height="64">
-  <img class="user-avatar-medal" ng-src="images/rank/rank-{{ user.rank }}.png" height="24">
+  <img class="user-avatar-img" src="../images/beMyBrainLogo.png" width="64" height="64">
+  <div ng-switch="user.rank">
+    <img ng-switch-default src="../images/rank/rank-0.png" alt="" class="user-avatar-medal" height="24">
+    <img ng-switch-when="1" src="../images/rank/rank-1.png" alt="" class="user-avatar-medal" height="24">
+    <img ng-switch-when="2" src="../images/rank/rank-2.png" alt="" class="user-avatar-medal" height="24">
+    <img ng-switch-when="3" src="../images/rank/rank-3.png" alt="" class="user-avatar-medal" height="24">
+    <img ng-switch-when="4" src="../images/rank/rank-4.png" alt="" class="user-avatar-medal" height="24">
+  </div>
 </figure>

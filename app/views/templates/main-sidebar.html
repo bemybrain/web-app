@@ -1,11 +1,17 @@
 <div class="col-md-4">
   <aside class="main-sidebar">
-    <div ng-if="dashboard.rank">
+    <div ng-if="dashboard">
       <h4>Evolua</h4>
       <div class="well">
         <div class="row">
           <div class="col-xs-4">
-            <img ng-src="../../images/rank/rank-{{ dashboard.rank }}.png" alt="MEDAL IM GAGE" class="img-responsive">
+            <div ng-switch="dashboard.rank">
+              <img ng-switch-default src="../images/rank/rank-0.png" alt="" class="img-responsive">
+              <img ng-switch-when="1" src="../images/rank/rank-1.png" alt="" class="img-responsive">
+              <img ng-switch-when="2" src="../images/rank/rank-2.png" alt="" class="img-responsive">
+              <img ng-switch-when="3" src="../images/rank/rank-3.png" alt="" class="img-responsive">
+              <img ng-switch-when="4" src="../images/rank/rank-4.png" alt="" class="img-responsive">
+            </div>
           </div>
           <div class="col-xs-8">
             <p><span class="label label-primary" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
@@ -17,7 +23,7 @@
       <hr />
     </div>
     <div>
-      <h4>Descubra</h4>
+      <h4>Aprenda</h4>
       <ul class="list-inline">
         <li ng-repeat="tag in tags">
           <a ui-sref="tag({ tagId: tag._id })" class="label label-default">{{ tag.name }}</a>

@@ -1,71 +1,64 @@
 <div class="container">
-	<div class="row">
-		<aside class="col-lg-6">
+	<div class="row" style="padding: 60px 0;">
+		<div class="col-lg-8 col-lg-offset-2">
 			<section class="user-profile">
+        <div class="text-center medal-name">
+          <div ng-switch="dashboard.rank">
+            <img ng-switch-default src="images/rank/rank-0.png" alt="" class="center-block">
+            <img ng-switch-when="1" src="images/rank/rank-1.png" alt="" class="center-block">
+            <img ng-switch-when="2" src="images/rank/rank-2.png" alt="" class="center-block">
+            <img ng-switch-when="3" src="images/rank/rank-3.png" alt="" class="center-block">
+            <img ng-switch-when="4" src="images/rank/rank-4.png" alt="" class="center-block">
+          </div>
+          <h3 class="text-uppercase">{{ dashboard.rules[dashboard.rank].type }} </h3>
+        </div>
+        <br>
+        <div class="text-center">
+          <h5 class="text-uppercase">Próximo nível:</h5>
+          <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
+          <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= dashboard.rules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + dashboard.rules[dashboard.rank + 1].a }} Respostas</span></p>
+          <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= dashboard.rules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + dashboard.rules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>
+        </div>
+        <br>
 
-					<!-- IMAGE PROFILE-->
-				<section class="user-profile-meta">
-					<div class="round-image">
-						<img src="../../images/beMyBrainLogo.png" alt="IMAGE PROFILE" class="center-block" height="200">
-					</div>
-					<!-- NAME PROFILE-->
-					<div class="profile-name text-center">
-						<h4>{{ user.name }}</h4>
-					</div>
-				</section>
-
-
-					<!-- ESPECIALIZATION PROFILE-->
-				<section class="especialization-profile" style="margin-top: 50px;" ng-if="dashboard">
-					<!-- MEDAL SECTION -->
-					<div class="row medal">
-            <!-- MEDAL NAME -->
-            <div class="col-md-6 text-center medal-name">
-						  <!-- MEDAL IMAGE -->
-              <img ng-src="../../images/rank/rank-{{ dashboard.rank }}.png" alt="MEDAL IMGAGE" class="center-block">
-              <h5 class="text-uppercase">{{ dashboard.rules[dashboard.rank].type }} </h5>
+        <!-- PERFORMANCE - LIKES E COMMENTS  -->
+        <div class="well" style="margin: 50px 0;">
+          <div class="row performance-meta-profile">
+            <div class="col-xs-6">
+              <h6 class="text-center">
+                <span><img src="images/003-star.svg" alt="" width="200" height="100" class="center-block"></span><br>
+                {{ dashboard.upvotes }} upvotes
+              </h6>
             </div>
-            <div class="col-md-6">
-              <h5 class="text-uppercase">Próximo nível:</h5>
-              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
-              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= dashboard.rules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + dashboard.rules[dashboard.rank + 1].a }} Respostas</span></p>
-              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= dashboard.rules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + dashboard.rules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>
+            <div class="col-xs-6">
+              <h6 class="text-center">
+                <span><img src="images/002-chat.svg" alt="" width="200" height="100" alt="" class="center-block"></span><br>
+                {{ dashboard.answers }} respostas
+              </h6>
             </div>
-            <br>
-					</div>
+          </div>
+        </div>
+      </section>
 
-					<!-- PERFORMANCE - LIKES E COMMENTS  -->
-					<div class="row performance-meta-profile">
-						<div class="col-xs-6">
-							<h6 class="text-center">
-  							<span><img src="../../images/003-star.svg" alt="" width="200" height="100" class="center-block"></span><br>
-  							{{ dashboard.upvotes }} upvotes
-							</h6>
-						</div>
-						<div class="col-xs-6">
-							<h6 class="text-center">
-								<span><img src="../../images/002-chat.svg" alt="" width="200" height="100" alt="" class="center-block"></span><br>
-								{{ dashboard.answers }} respostas
-							</h6>
-						</div>
-					</div>
-				</section>
-			</section>
-		</aside>
-
-		<div class="col-lg-6">
-			<div class="titulo-do-chart">
-				<h3>Seu desempenho</h3>
-				<hr>
-			</div>
-			<div class="chart" style="margin-top: 50px;">
-				<div class="secao">
-					<h5>Número de respostas por categoria</h5>
-				</div>
-			</div>
-			<div style="padding: 40px;">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-data="chart.data" chart-labels="chart.labels"></canvas>
-      </div>
-		<br>
-	</div>
+      <section>
+        <h3>Seu desempenho</h3>
+        <hr>
+        <div class="row">
+          <div class="col-sm-6">
+            <div>
+              <br>
+              <h4>Número de respostas por categoria</h4>
+              <p ng-if="!dashboard.answers">
+                Você ainda não respondeu nenhuma pergunta!
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-6" ng-if="dashboard.answers">
+            <canvas id="doughnut" class="chart chart-doughnut" chart-data="chart.data" chart-labels="chart.labels" class="center-block"></canvas>
+          </div>
+        </div>
+      </section>
+      <br>
+    </div>
+  </div>
 </div>

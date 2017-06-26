@@ -50,12 +50,12 @@ angular.module('webAppApp')
 
     function setDashboard (userId) {
       return Dashboard.set(userId).then(function (data) {
-        console.log(data);
         setChart(data)
       }, handleErr)
     }
 
     function setChart (data) {
+      console.log(data);
       chart.labels = _.map(data.tags, function (val, key) {
         var tagIndex = _.findIndex(tags, { '_id': key })
         return tags[tagIndex].name

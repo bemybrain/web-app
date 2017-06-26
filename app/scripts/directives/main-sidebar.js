@@ -7,7 +7,7 @@
  * # mainSidebar
  */
 angular.module('webAppApp')
-  .directive('mainSidebar', function (Tag, Dashboard, AuthenticationService) {
+  .directive('mainSidebar', function (Tag, Dashboard, AuthenticationService, AlertMessage) {
     return {
       templateUrl: '../../views/templates/main-sidebar.html',
       restrict: 'E',
