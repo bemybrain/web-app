@@ -3,18 +3,16 @@
 		<div class="col-lg-8 col-lg-offset-2">
 			<section class="user-profile">
         <div class="text-center medal-name">
-          <div ng-switch="dashboard.rank">
-            <img ng-switch-default src="images/rank/rank-0.png" alt="" class="center-block">
-            <img ng-switch-when="1" src="images/rank/rank-1.png" alt="" class="center-block">
-            <img ng-switch-when="2" src="images/rank/rank-2.png" alt="" class="center-block">
-            <img ng-switch-when="3" src="images/rank/rank-3.png" alt="" class="center-block">
-            <img ng-switch-when="4" src="images/rank/rank-4.png" alt="" class="center-block">
-          </div>
+          <ul class="list-inline">
+            <li ng-repeat="i in [0,1,2,3,4]" ng-if="dashboard.rank >= i">
+              <img ng-src="images/rank/rank-{{ i }}.png" alt="" class="center-block" >
+            </li>
+          </ul>
           <h3 class="text-uppercase">{{ dashboard.rules[dashboard.rank].type }} </h3>
         </div>
         <br>
         <div class="text-center">
-          <h5 class="text-uppercase">Próximo nível:</h5>
+          <h5 class="text-uppercase">Próxima medalha:</h5>
           <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
           <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= dashboard.rules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + dashboard.rules[dashboard.rank + 1].a }} Respostas</span></p>
           <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= dashboard.rules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + dashboard.rules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>

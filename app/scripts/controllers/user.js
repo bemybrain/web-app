@@ -9,7 +9,17 @@
  */
 angular.module('webAppApp')
   .controller('UserCtrl', function ($scope, $state, User, AuthenticationService, Tag, AlertMessage) {
+    var tags = Tag.getAll()
+    $scope.tags = tags
     $scope.profile = angular.copy(AuthenticationService.getUserInfo()) || {}
+
+    function init () {
+      setTags()
+    }
+
+    function setTags () {
+      return Tag.set().catch(handleErr)
+    }
 
     $scope.isLoggedIn = function () {
       return AuthenticationService.isLoggedIn()
@@ -42,7 +52,16 @@ angular.module('webAppApp')
     }
 
     $scope.loadTags = function (query) {
-      return Tag.findAll()
+      return _.filter(tags, function (tag) {
+        return tag.name.toUpperCase().includes(query.toUpperCase())
+      })
     }
+
+    function handleErr (err) {
+      console.log(err)
+      AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
+    }
+
+    init()
 
   })

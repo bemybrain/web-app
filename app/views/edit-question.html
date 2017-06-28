@@ -8,12 +8,12 @@
         <div class="form-group">
           <label class="control-label">Título</label>
           <input ng-model="question.title" type="text" class="form-control" placeholder="Título da pergunta" name="title" required>
-          <p ng-if="editQuestionForm.title.$error && editQuestionForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
+          <p ng-if="editQuestionForm.title.$invalid && newQuestionForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
         </div>
         <div class="form-group">
           <label class="control-label">Conteúdo</label>
           <textarea name="body" ng-model="question.body" class="form-control" rows="10" placeholder="Descreva detalhadamente sua dúvida..." required></textarea>
-          <p ng-if="editQuestionForm.body.$error && editQuestionForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
+          <p ng-if="editQuestionForm.body.$invalid && editQuestionForm.$submitted" class="help-block text-danger">Este campo é obrigatório</p>
         </div>
         <div class="form-group">
           <label>Tags</label>

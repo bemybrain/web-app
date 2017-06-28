@@ -1,0 +1,22 @@
+<div class="text-center">
+  <h1>Parabéns!</h1>
+  <p>Você conquistou uma nova medalha:</p>
+  <br>
+  <div class="text-center medal-name">
+    <div ng-switch="ngDialogData.rank">
+      <img ng-switch-default src="images/rank/rank-0.png" alt="" class="center-block">
+      <img ng-switch-when="1" src="images/rank/rank-1.png" alt="" class="center-block">
+      <img ng-switch-when="2" src="images/rank/rank-2.png" alt="" class="center-block">
+      <img ng-switch-when="3" src="images/rank/rank-3.png" alt="" class="center-block">
+      <img ng-switch-when="4" src="images/rank/rank-4.png" alt="" class="center-block">
+    </div>
+    <h3 class="text-uppercase">{{ ngDialogData.rules[ngDialogData.rank].type }} </h3>
+    <p><span class="label label-default" ng-class="{ 'label-success': ngDialogData.questions >= ngDialogData.rules[ngDialogData.rank].q }">{{ ngDialogData.questions + '/' + ngDialogData.rules[ngDialogData.rank].q }} Perguntas</span></p>
+    <p><span class="label label-default" ng-class="{ 'label-success': ngDialogData.answers >= ngDialogData.rules[ngDialogData.rank].a }">{{ ngDialogData.answers + '/' + ngDialogData.rules[ngDialogData.rank].a }} Respostas</span></p>
+    <p><span class="label label-default" ng-class="{ 'label-success': ngDialogData.score >= ngDialogData.rules[ngDialogData.rank].s }">{{ ngDialogData.score + '/' + ngDialogData.rules[ngDialogData.rank].s }} Upvotes - Downvotes</span></p>
+  </div>
+  <div>
+    <hr />
+    <button class="btn btn-success btn-block" type="button" ng-click="confirm()">Continuar</button>
+  </div>
+</div>

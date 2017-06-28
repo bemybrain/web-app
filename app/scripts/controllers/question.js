@@ -10,25 +10,23 @@
 angular.module('webAppApp')
   .controller('QuestionCtrl', function ($scope, $state, $stateParams, Questions, Answers, User, AuthenticationService, AlertMessage, Tag) {
     var currentUser = AuthenticationService.getUserInfo()
+    var tags = Tag.getAll()
 
     $scope.newAnswer = {}
-    $scope.tags = []
+    $scope.tags = tags
     $scope.loading = false
     $scope.isAuthor = false
     $scope.currentUser = currentUser
 
     function init () {
-      getTags()
+      setTags()
       getQuestion($stateParams.id, function () {
         getAnswers()
       })
     }
 
-    function getTags () {
-      Tag.findAll()
-        .then(function (res) {
-          $scope.tags = res.data
-        })
+    function setTags () {
+      return Tag.set().catch(handleErr)
     }
 
     function getQuestion (id, callback) {
@@ -106,9 +104,14 @@ angular.module('webAppApp')
     }
 
     $scope.loadTags = function (query) {
-      return _.filter($scope.tags, function (tag) {
+      return _.filter(tags, function (tag) {
         return tag.name.toUpperCase().includes(query.toUpperCase())
       })
+    }
+
+    function handleErr (err) {
+      console.log(err)
+      AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
     }
 
     $scope.isAuthorsChoice = function (answer) {

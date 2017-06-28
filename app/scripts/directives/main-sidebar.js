@@ -13,22 +13,17 @@ angular.module('webAppApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
         var user = AuthenticationService.getUserInfo()
-        var tags = []
+        var tags = Tag.getAll()
         var dashboard = Dashboard.get()
 
         function init () {
           scope.dashboard = dashboard
           scope.tags = tags
-          getTags()
+          setTags()
           setDashboard()
         }
-
-        function getTags () {
-          return Tag.findAll()
-            .then(function (res) {
-              scope.tags = tags = res.data
-              return tags
-            })
+        function setTags () {
+          return Tag.set().catch(handleErr)
         }
 
         function setDashboard () {

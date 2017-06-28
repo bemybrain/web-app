@@ -8,9 +8,38 @@
  * Service in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('Tag', function (ENV, $http) {
+  .factory('Tag', function (ENV, $http, $q) {
+    var tags = []
+
+    function setData (data) {
+      tags.length = 0
+      _.forEach(data, function (tag) {
+        tags.push(tag)
+      })
+      return tags
+    }
+
     // Public API here
     return {
+      reset: function () {
+        tags.length = 0
+      },
+      getAll: function () {
+        return tags
+      },
+      set: function () {
+        var d = $q.defer()
+        var request = $http({
+          method: 'GET',
+          url: ENV.apiEndpoint + '/tags/'
+        })
+        request
+          .then(function (res) {
+            d.resolve(setData(res.data))
+          })
+          .catch(d.reject)
+        return d.promise
+      },
       create: function (data) {
         return $http({
           method: 'POST',

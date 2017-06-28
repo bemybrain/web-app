@@ -8,20 +8,18 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('NewQuestionCtrl', function ($scope, $state, Questions, User, AuthenticationService, Tag) {
+  .controller('NewQuestionCtrl', function ($scope, $state, Questions, User, AuthenticationService, AlertMessage, Tag) {
+    var tags = Tag.getAll()
+    $scope.tags = tags
     $scope.newQuestion = {}
-    $scope.tags = []
     $scope.loading = false
 
     function init () {
-      getTags()
+      setTags()
     }
 
-    function getTags () {
-      Tag.findAll()
-        .then(function (res) {
-          $scope.tags = res.data
-        })
+    function setTags () {
+      return Tag.set().catch(handleErr)
     }
 
     $scope.isLoggedIn = function () {
@@ -51,9 +49,14 @@ angular.module('webAppApp')
     }
 
     $scope.loadTags = function (query) {
-      return _.filter($scope.tags, function (tag) {
+      return _.filter(tags, function (tag) {
         return tag.name.toUpperCase().includes(query.toUpperCase())
       })
+    }
+
+    function handleErr (err) {
+      console.log(err)
+      AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')
     }
 
     init()

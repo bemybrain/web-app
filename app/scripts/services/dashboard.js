@@ -8,8 +8,19 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('Dashboard', function (ENV, $http, $q) {
+  .factory('Dashboard', function (ENV, $http, $q, ngDialog) {
     var dashboard = {}
+
+    function levelUp (data) {
+      var dialog = ngDialog.openConfirm({
+        template: 'views/modals/level-up.html',
+        showClose: true,
+        trapFocus: true,
+        closeByDocument: true,
+        closeByEscape: true,
+        data: data
+      })
+    }
 
     function setData (data) {
       var newData = {
@@ -21,6 +32,9 @@ angular.module('webAppApp')
         tags: data.tags,
         rank: data.rank,
         rules: data.rules
+      }
+      if (dashboard.rank < newData.rank) {
+        levelUp(newData)
       }
       _.assign(dashboard, newData)
       return dashboard
@@ -43,10 +57,10 @@ angular.module('webAppApp')
           url: ENV.apiEndpoint + '/dashboard/' + userId
         })
         request
-        .then(function (res) {
-          d.resolve(setData(res.data))
-        })
-        .catch(d.reject)
+          .then(function (res) {
+            d.resolve(setData(res.data))
+          })
+          .catch(d.reject)
         return d.promise
       }
     }
