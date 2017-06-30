@@ -31,7 +31,7 @@ angular.module('webAppApp')
             if (err.status === 401) {
               AlertMessage.show('Usuário já existente.', 'Faça login ou tente novamente com informações diferentes.', 'warning')
             } else {
-              AlertMessage.show('Algo de errado não está certo.', 'Tente novamente.', 'warning')
+              AlertMessage.show('Algo de errado não está certo.', 'Recarregue a página e tente novamente.', 'warning')
             }
           })
           .finally(function () {
@@ -48,7 +48,7 @@ angular.module('webAppApp')
       AuthenticationService.login(username, password)
         .then(function (data) {
           $scope.getUserInfo()
-          $state.go('main.dashboard')
+          $state.go('main.mydashboard')
           if (data._id) {
             var msg = 'Login efetuado com sucesso!'
             if (data.name) {
@@ -61,7 +61,7 @@ angular.module('webAppApp')
           if (err.status === 401) {
             AlertMessage.show('Usuário ou senha incorretos.', 'Tente novamente.', 'warning')
           } else {
-            AlertMessage.show('Algo de errado não está certo.', 'Tente novamente.', 'warning')
+            AlertMessage.show('Algo de errado não está certo.', 'Recarregue a página e tente novamente.', 'warning')
           }
         })
         .finally(function () {

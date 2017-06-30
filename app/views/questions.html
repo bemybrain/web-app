@@ -20,7 +20,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-11">
-              <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }} - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
+              <p><a class="color-1" ui-sref="main.dashboard({ userId: question.author._id })"><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }}</a> - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
             </div>
             <div class="col-xs-1 text-center" ng-if="userInfo._id === question.author._id">
               <a href="" bs-dropdown aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>

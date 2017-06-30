@@ -42,6 +42,7 @@ angular.module('webAppApp')
         .then(function (res) {
           AuthenticationService.setUserInfo(res.data)
           AlertMessage.show('Usuário alterado com sucesso!')
+          $state.go('main.questions')
         })
         .catch(function (err) {
           AlertMessage.show('Ops!', 'Ocorreu um erro inesperado.', 'danger')

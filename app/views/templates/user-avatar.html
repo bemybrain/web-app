@@ -1,4 +1,4 @@
 <figure class="user-avatar">
   <img class="user-avatar-img" src="../images/beMyBrainLogo.png" width="64" height="64">
-  <img ng-src="../images/rank/rank-{{ user.rank }}.png" alt="" class="user-avatar-medal" height="24">
+  <img ng-src="../images/rank/rank-{{ user.rank > 0 ? user.rank : 0 }}.png" alt="" class="user-avatar-medal" height="24">
 </figure>

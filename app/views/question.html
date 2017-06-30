@@ -12,7 +12,7 @@
       <!-- Title -->
       <article class="main-section question-detail" ng-if="question._id">
         <vote-box ng-if="!isAuthor" question="question" class="pull-right"></vote-box>
-        <p><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }} - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
+        <p><a class="color-1" ui-sref="main.dashboard({ userId: question.author._id })"><i class="glyphicon glyphicon-user" width="60px" height="60px" href="#"></i> {{ question.author.name || question.author.username || 'Usuário' }}</a> - <i class="glyphicon glyphicon-time"></i> {{ question.date | date : 'dd MMM yyyy, h:mm a' }}</p>
         <h2>{{ question.title }}</h2>
         <br>
         <div class="question-body">
@@ -35,7 +35,7 @@
             <vote-box ng-if="answer.author._id !== currentUser._id" answer="answer" class="pull-right"></vote-box>
             <div class="media-body">
               <user-avatar user="answer.author"></user-avatar>
-              <h4 class="media-heading">{{ answer.author.name || answer.author.username || 'Usuário' }} <small ng-if="isAuthorsChoice(answer)"><i class="glyphicon glyphicon-star"></i> Escolha do autor</small></h4>
+              <h4 class="media-heading"><a class="color-1" ui-sref="main.dashboard({ userId: answer.author._id })">{{ answer.author.name || answer.author.username || 'Usuário' }}</a> <small ng-if="isAuthorsChoice(answer)"><i class="glyphicon glyphicon-star"></i> Escolha do autor</small></h4>
               <p><small>Postado em {{ answer.date | date : 'dd MMM yyyy, h:mm a' }}</small></p>
               <p>{{ answer.body }}</p>
             </div>

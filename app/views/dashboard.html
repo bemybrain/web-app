@@ -1,54 +1,63 @@
 <div class="container">
-	<div class="row" style="padding: 60px 0;">
-		<div class="col-lg-8 col-lg-offset-2">
-			<section class="user-profile">
-        <div class="text-center medal-name">
-          <ul class="list-inline">
-            <li ng-repeat="i in [0,1,2,3,4]" ng-if="dashboard.rank >= i">
-              <img ng-src="images/rank/rank-{{ i }}.png" alt="" class="center-block" >
-            </li>
-          </ul>
-          <h3 class="text-uppercase">{{ dashboard.rules[dashboard.rank].type }} </h3>
-        </div>
-        <br>
-        <div class="text-center">
-          <h5 class="text-uppercase">Próxima medalha:</h5>
-          <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
-          <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= dashboard.rules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + dashboard.rules[dashboard.rank + 1].a }} Respostas</span></p>
-          <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= dashboard.rules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + dashboard.rules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>
-        </div>
-        <br>
-
-        <!-- PERFORMANCE - LIKES E COMMENTS  -->
-        <div class="well" style="margin: 50px 0;">
-          <div class="row performance-meta-profile">
-            <div class="col-xs-6">
-              <h6 class="text-center">
-                <span><img src="images/003-star.svg" alt="" width="200" height="100" class="center-block"></span><br>
-                {{ dashboard.upvotes }} upvotes
-              </h6>
+	<div class="row" style="padding: 20px 0 60px;">
+		<div class="col-lg-10 col-lg-offset-1">
+      <h1>{{ user.name }}</h1>
+      <hr>
+			<section class="user-profile" style="margin-top: 60px;">
+        <div class="row">
+          <div class="col-md-6 text-center medal-name">
+            <ul class="list-inline">
+              <li ng-repeat="i in [0,1,2,3,4]" ng-if="dashboard.rank >= i">
+                <img ng-src="images/rank/rank-{{ i }}.png" alt="" class="center-block" >
+              </li>
+            </ul>
+            <h3 class="text-uppercase">{{ dashboard.rules[dashboard.rank].type }} </h3>
+            <br>
+            <div class="text-center">
+              <h5 class="text-uppercase">Próxima medalha:</h5>
+              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.questions >= dashboard.rules[dashboard.rank + 1].q }">{{ dashboard.questions + '/' + dashboard.rules[dashboard.rank + 1].q }} Perguntas</span></p>
+              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.answers >= dashboard.rules[dashboard.rank + 1].a }">{{ dashboard.answers + '/' + dashboard.rules[dashboard.rank + 1].a }} Respostas</span></p>
+              <p><span class="label label-default" ng-class="{ 'label-success': dashboard.score >= dashboard.rules[dashboard.rank + 1].s }">{{ dashboard.score + '/' + dashboard.rules[dashboard.rank + 1].s }} Upvotes - Downvotes</span></p>
             </div>
-            <div class="col-xs-6">
-              <h6 class="text-center">
-                <span><img src="images/002-chat.svg" alt="" width="200" height="100" alt="" class="center-block"></span><br>
-                {{ dashboard.answers }} respostas
-              </h6>
+          </div>
+          <!-- PERFORMANCE - LIKES E COMMENTS  -->
+          <div class="col-md-6">
+            <div class="well">
+              <div class="performance-meta-profile">
+                <div>
+                  <h6 class="text-center">
+                    <span><img src="images/003-star.svg" alt="" width="200" height="100" class="center-block"></span><br>
+                    {{ dashboard.upvotes }} upvotes
+                  </h6>
+                </div>
+                <br>
+                <br>
+                <div>
+                  <h6 class="text-center">
+                    <span><img src="images/002-chat.svg" alt="" width="200" height="100" alt="" class="center-block"></span><br>
+                    {{ dashboard.answers }} respostas
+                  </h6>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section>
-        <h3>Seu desempenho</h3>
+      <section style="margin-top: 60px;" ng-if="dashboard.answers">
+        <h3>Desempenho</h3>
         <hr>
         <div class="row">
           <div class="col-sm-6">
             <div>
               <br>
               <h4>Número de respostas por categoria</h4>
-              <p ng-if="!dashboard.answers">
-                Você ainda não respondeu nenhuma pergunta!
-              </p>
+              <br>
+              <ul>
+                <li ng-repeat="(i, label) in chart.labels">
+                  <b>{{ label }}:</b> {{ chart.data[i] }}
+                </li>
+              </ul>
             </div>
           </div>
           <div class="col-sm-6" ng-if="dashboard.answers">

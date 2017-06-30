@@ -8,10 +8,11 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('DashboardCtrl', function ($scope, $state, AuthenticationService, AlertMessage, Dashboard, Tag) {
-    var user = AuthenticationService.getUserInfo()
+  .controller('DashboardCtrl', function ($scope, $state, $stateParams, AuthenticationService, AlertMessage, Dashboard, Tag, User) {
+    var currentUser = AuthenticationService.getUserInfo()
+    var userId = $stateParams.userId || currentUser._id
     var dashboard = Dashboard.get()
-    var tags = []
+    var tags = Tag.getAll()
     var chart = {
       labels: [],
       data: [],
@@ -28,24 +29,28 @@ angular.module('webAppApp')
     }
 
     function init () {
-      $scope.user = user
       $scope.chart = chart
       $scope.dashboard = dashboard
 
-      if (user && user._id) {
-        getTags()
+      if (userId) {
+        getUser(userId)
+        setTags()
           .then(function () {
-            setDashboard(user._id)
+            setDashboard(userId)
           }, handleErr)
       }
     }
 
-    function getTags () {
-      return Tag.findAll()
+    function getUser (id) {
+      return User.findOne(id)
         .then(function (res) {
-          tags = res.data
-          return tags
+          $scope.user = res.data
+          return $scope.user
         })
+    }
+
+    function setTags () {
+      return Tag.set()
     }
 
     function setDashboard (userId) {
@@ -55,7 +60,6 @@ angular.module('webAppApp')
     }
 
     function setChart (data) {
-      console.log(data);
       chart.labels = _.map(data.tags, function (val, key) {
         var tagIndex = _.findIndex(tags, { '_id': key })
         return tags[tagIndex].name

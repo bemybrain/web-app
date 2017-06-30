@@ -8,7 +8,7 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('Dashboard', function (ENV, $http, $q, ngDialog) {
+  .factory('Dashboard', function (ENV, $http, $q, ngDialog, AuthenticationService) {
     var dashboard = {}
 
     function levelUp (data) {
@@ -22,7 +22,9 @@ angular.module('webAppApp')
       })
     }
 
-    function setData (data) {
+    function setData (userId, data) {
+      var currentUser = AuthenticationService.getUserInfo()
+      var isCurrentUser = currentUser._id === userId
       var newData = {
         upvotes: data.upvotes,
         downvotes: data.downvotes,
@@ -33,7 +35,7 @@ angular.module('webAppApp')
         rank: data.rank,
         rules: data.rules
       }
-      if (dashboard.rank < newData.rank) {
+      if (isCurrentUser && (dashboard.rank < newData.rank)) {
         levelUp(newData)
       }
       _.assign(dashboard, newData)
@@ -58,7 +60,7 @@ angular.module('webAppApp')
         })
         request
           .then(function (res) {
-            d.resolve(setData(res.data))
+            d.resolve(setData(userId, res.data))
           })
           .catch(d.reject)
         return d.promise

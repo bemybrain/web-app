@@ -84,8 +84,13 @@ angular
           logout: logout
         }
       })
-      .state('main.dashboard', {
+      .state('main.mydashboard', {
         url: '/dashboard',
+        controller: 'DashboardCtrl',
+        templateUrl: 'views/dashboard.html',
+      })
+      .state('main.dashboard', {
+        url: '/dashboard/:userId',
         controller: 'DashboardCtrl',
         templateUrl: 'views/dashboard.html',
       })
