@@ -14,36 +14,53 @@ angular.module('webAppApp')
     function login (username, password) {
       var deferred = $q.defer()
 
-      $http.post(ENV.apiEndpoint + '/login', {
-        username: username,
-        password: password
-      }).then(function (result) {
-        userInfo = result.data
-        $cookies.put('userInfo', JSON.stringify(userInfo))
-        deferred.resolve(userInfo)
-      }, function (error) {
-        console.log(error)
-        deferred.reject(error)
-      })
+      $http
+        .post(ENV.apiEndpoint + '/login', {
+          username: username,
+          password: password
+        })
+        .then(loginSuccess(deferred), loginError(deferred))
 
       return deferred.promise
     }
 
-    function signup (userData) {
+    function fblogin (email) {
       var deferred = $q.defer()
-      $http.post(ENV.apiEndpoint + '/signup', {
-        username: userData.username,
-        password: userData.password,
-        name: userData.name,
-        email: userData.email
-      }).then(function (result) {
-        userInfo = result.data
-        setUserInfo(userInfo)
-        deferred.resolve(userInfo)
-      }, function (error) {
+      $http
+        .post(ENV.apiEndpoint + '/fblogin', {
+          email: email
+        })
+        .then(loginSuccess(deferred), loginError(deferred))
+
+      return deferred.promise
+    }
+
+    function loginSuccess (prom) {
+      return function (result) {
+        setUserInfo(result.data)
+        if (prom) {
+          prom.resolve(getUserInfo())
+        }
+      }
+    }
+
+    function loginError (prom) {
+      return function (error) {
         console.log(error)
         deferred.reject(error)
-      })
+      }
+    }
+
+    function signup (userData) {
+      var deferred = $q.defer()
+      $http
+        .post(ENV.apiEndpoint + '/signup', {
+          username: userData.username,
+          password: userData.password,
+          name: userData.name,
+          email: userData.email
+        })
+        .then(loginSuccess(deferred), loginError(deferred))
 
       return deferred.promise
     }
@@ -70,7 +87,8 @@ angular.module('webAppApp')
     }
 
     function setUserInfo (data) {
-      $cookies.put('userInfo', JSON.stringify(data))
+      userInfo = data
+      $cookies.put('userInfo', JSON.stringify(userInfo))
       return userInfo
     }
 
@@ -108,6 +126,7 @@ angular.module('webAppApp')
     return {
       signup: signup,
       login: login,
+      fblogin: fblogin,
       getUserInfo: getUserInfo,
       setUserInfo: setUserInfo,
       isLoggedIn: isLoggedIn,

@@ -9,8 +9,15 @@
                 <p>Faça login para continuar</p>
             </div>
         </div>
+        <br>
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class="form-group col-xs-12 text-center">
+              <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                 <form ng-submit="login()" novalidate>
@@ -31,8 +38,8 @@
                     <br>
                     <div id="success"></div>
                     <div class="row">
-                        <div class="form-group col-xs-12">
-                          <button type="submit" ng-disabled="loading" class="btn btn-success btn-lg">Login</button><br></br>
+                        <div class="form-group col-xs-12 text-center">
+                          <button type="submit" ng-disabled="loading" class="btn btn-success btn-lg btn-block">Login</button><br></br>
                         </div>
                     </div>
                 </form>
@@ -48,7 +55,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2">
+      <div class="col-md-6 col-md-offset-3">
         <form name="signupForm" id="signupForm" ng-submit="signup()" novalidate>
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
@@ -78,7 +85,7 @@
           <br>
           <div class="row">
             <div class="form-group col-xs-12">
-              <button ng-disabled="loading || !signupForm.$valid" class="btn btn-success btn-lg" type="submit">Cadastrar</button><br></br>
+              <button ng-disabled="loading || !signupForm.$valid" class="btn btn-success btn-lg btn-block" type="submit">Cadastrar</button><br></br>
               <p><small>Já é Cadastrado? <a ui-sref="login">Clique Aqui</a></small></p>
             </div>
           </div>

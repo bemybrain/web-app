@@ -107,6 +107,33 @@ angular
       document.body.scrollTop = document.documentElement.scrollTop = 0
     })
   }])
+  // Facebook Login
+  .run(['$window', 'AuthenticationService', function ($window, AuthenticationService) {
+    $window.fbAsyncInit = function () {
+      // Executed when the SDK is loaded
+      FB.init({
+         appId: '242276509636602',
+         channelUrl: 'app/channel.html',
+         status: true,
+         cookie: true,
+         xfbml: true,
+         version: 'v2.8'
+      })
+    }
+    $window.checkLoginState = function () {
+      FB.getLoginStatus(function (res) {
+        console.log(1, res)
+        if (res.status === 'connected') {
+          FB.api('/me', function (response) {
+            console.log(2, response)
+            console.log('Successful login for: ' + response.email)
+            AuthenticationService.fblogin(response.email)
+          })
+        }
+      })
+    }
+  }])
+  // Cors
   .config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true
   }])
