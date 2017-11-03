@@ -47,7 +47,7 @@ angular.module('webAppApp')
     function loginError (prom) {
       return function (error) {
         console.log(error)
-        deferred.reject(error)
+        prom.reject(error)
       }
     }
 

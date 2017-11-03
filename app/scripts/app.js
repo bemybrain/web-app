@@ -124,7 +124,7 @@ angular
       FB.getLoginStatus(function (res) {
         console.log(1, res)
         if (res.status === 'connected') {
-          FB.api('/me', function (response) {
+          FB.api('/me', { fields: 'email' }, function (response) {
             console.log(2, response)
             console.log('Successful login for: ' + response.email)
             AuthenticationService.fblogin(response.email)

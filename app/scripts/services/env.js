@@ -10,7 +10,7 @@
 angular.module('webAppApp')
   .constant('ENV', {
     name: 'production',
-    apiEndpoint: 'https://5ov38s6-bemybrain.wedeploy.io'
+    apiEndpoint: 'https://i2zgdwp-bemybrain.wedeploy.io'
     // name: 'development',
     // apiEndpoint: 'http://localhost:3000/api'
   })
