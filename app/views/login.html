@@ -47,50 +47,5 @@
         </div>
     </div>
 </section>
-<section class="bg-highlight main-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2>Cadastre-se</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <form name="signupForm" id="signupForm" ng-submit="signup()" novalidate>
-          <div class="row control-group">
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Nome</label>
-              <input ng-disabled="loading" type="text" class="form-control" placeholder="Nome" name="name" ng-model="newUser.name" required>
-            </div>
-          </div>
-          <div class="row control-group">
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Email</label>
-              <input ng-disabled="loading" type="email" class="form-control" placeholder="Email" name="email" ng-model="newUser.email" required>
-            </div>
-          </div>
-          <div class="row control-group">
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Usuário</label>
-              <input ng-disabled="loading" type="text" class="form-control" placeholder="Usuário" name="username" ng-model="newUser.username" required>
-            </div>
-          </div>
-          <div class="row control-group">
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Senha</label>
-              <input ng-disabled="loading" class="form-control" type="password" placeholder="Senha" name="password" ng-model="newUser.password" required>
-            </div>
-          </div>
 
-          <br>
-          <div class="row">
-            <div class="form-group col-xs-12">
-              <button ng-disabled="loading || !signupForm.$valid" class="btn btn-success btn-lg btn-block" type="submit">Cadastrar</button><br></br>
-              <p><small>Já é Cadastrado? <a ui-sref="login">Clique Aqui</a></small></p>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+<div ng-include="'/views/partials/signup.html'" ng-controller="MainCtrl"></div>

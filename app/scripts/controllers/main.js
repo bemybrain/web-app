@@ -9,10 +9,24 @@
 */
 angular.module('webAppApp')
   .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService, AlertMessage, Dashboard) {
+    function getUserNameParam (params) {
+      if (params.username) {
+        params.username
+      }
+      if (params.email) {
+        return params.email.substring(0, params.email.indexOf('@'))
+      }
+      return null
+    }
 
     $scope.userInfo = AuthenticationService.getUserInfo() || null
     $scope.currentState = $state.current.name
-    $scope.newUser = {}
+    $scope.newUser = {
+      name: $state.params.name,
+      username: getUserNameParam($state.params),
+      email: $state.params.email,
+      password: $state.params.password
+    }
     $scope.loading = false
 
     $scope.signup = function (userData) {

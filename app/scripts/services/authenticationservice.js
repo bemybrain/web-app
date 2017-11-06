@@ -8,7 +8,7 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('AuthenticationService', function ($http, $q, $cookies, ENV) {
+  .factory('AuthenticationService', function ($http, $q, $cookies, $state, ENV) {
     var userInfo
 
     function login (username, password) {
@@ -24,13 +24,19 @@ angular.module('webAppApp')
       return deferred.promise
     }
 
-    function fblogin (email) {
+    function fblogin (userInfo) {
       var deferred = $q.defer()
       $http
         .post(ENV.apiEndpoint + '/fblogin', {
-          email: email
+          email: userInfo.email
         })
-        .then(loginSuccess(deferred), loginError(deferred))
+        .then(loginSuccess(deferred))
+        .catch(function (err) {
+          if (err.status === 401) {
+            $state.go('main.signup', { email: userInfo.email, name: userInfo.name });
+          }
+          loginError(deferred)(err)
+        })
 
       return deferred.promise
     }
