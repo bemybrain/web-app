@@ -2,8 +2,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <h1>Meu Perfil</h1>
-      <br>
-
+      <br />
       <form name="myProfileForm" novalidate ng-submit="updateProfile()">
         <div class="form-group">
           <label class="control-label">Nome</label>
@@ -31,6 +30,13 @@
         </div>
       </form>
 
+      <div ng-if="!profile.fbId" class="text-center">
+        <label class="control-label">Vincular conta ao Facebook</label>
+        <br>
+        <fb-login />
+      </div>
+
+      <br>
 
       <form name="newPasswordForm">
         <div class="form-group">

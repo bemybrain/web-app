@@ -8,7 +8,7 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('AuthenticationService', function ($http, $q, $cookies, $state, ENV) {
+  .factory('AuthenticationService', function ($http, $q, $cookies, $state, ENV, AlertMessage) {
     var userInfo
 
     function login (username, password) {
@@ -24,18 +24,27 @@ angular.module('webAppApp')
       return deferred.promise
     }
 
-    function fblogin (userInfo) {
+    function fblogin (userData) {
       var deferred = $q.defer()
       $http
         .post(ENV.apiEndpoint + '/fblogin', {
-          email: userInfo.email
+          userId: isLoggedIn() ? getUserInfo()._id : null,
+          fbId: userData.id
         })
-        .then(loginSuccess(deferred))
-        .catch(function (err) {
-          if (err.status === 401) {
-            $state.go('main.signup', { email: userInfo.email, name: userInfo.name });
+        .then(function (res) {
+          if (isLoggedIn()) {
+            AlertMessage.show('Pronto! ', 'Seu perfil no facebook foi vinculado à sua conta.', 'success')
+            $state.reload()
+          } else {
+            $state.go('main.mydashboard')
           }
+          loginSuccess(deferred)(res)
+        })
+        .catch(function (err) {
           loginError(deferred)(err)
+          if (err.status === 401) {
+            $state.go('main.signup', { fbId: userData.id, email: userData.email, name: userData.name })
+          }
         })
 
       return deferred.promise
@@ -64,6 +73,7 @@ angular.module('webAppApp')
           username: userData.username,
           password: userData.password,
           name: userData.name,
+          fbId: userData.fbId,
           email: userData.email
         })
         .then(loginSuccess(deferred), loginError(deferred))
@@ -99,11 +109,7 @@ angular.module('webAppApp')
     }
 
     function isLoggedIn () {
-      if (userInfo && userInfo !== null) {
-        return true
-      } else {
-        return false
-      }
+      return userInfo && userInfo._id
     }
 
     function init () {

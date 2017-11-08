@@ -8,7 +8,7 @@
 * Controller of the webAppApp
 */
 angular.module('webAppApp')
-  .controller('MainCtrl', function ($scope, $location, $state, AuthenticationService, AlertMessage, Dashboard) {
+  .controller('MainCtrl', function ($scope, $location, $state, $timeout, AuthenticationService, AlertMessage, Dashboard) {
     function getUserNameParam (params) {
       if (params.username) {
         params.username
@@ -22,6 +22,7 @@ angular.module('webAppApp')
     $scope.userInfo = AuthenticationService.getUserInfo() || null
     $scope.currentState = $state.current.name
     $scope.newUser = {
+      fbId: $state.params.fbId,
       name: $state.params.name,
       username: getUserNameParam($state.params),
       email: $state.params.email,

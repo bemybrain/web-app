@@ -25,6 +25,16 @@
   <!-- endbuild -->
 </head>
 <body ng-app="webAppApp">
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.10&appId=1638525493083016';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
   <!--[if lte IE 8]>
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -112,6 +122,7 @@
   <script src="scripts/services/authenticationservice.js"></script>
   <script src="scripts/services/tag.js"></script>
   <script src="scripts/services/alertmessage.js"></script>
+  <script src="scripts/services/dashboard.js"></script>
 
   <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/questions.js"></script>
@@ -124,17 +135,9 @@
   <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.2.3"></script>
 
   <script src="scripts/directives/vote-box.js"></script>
-  <script src="scripts/services/dashboard.js"></script>
   <script src="scripts/directives/main-sidebar.js"></script>
   <script src="scripts/directives/user-avatar.js"></script>
+  <script src="scripts/directives/fb-login.js"></script>
   <!-- endbuild -->
-  <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.10&appId=1638525493083016';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
