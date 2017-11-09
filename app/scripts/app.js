@@ -10,6 +10,7 @@
  */
 angular
   .module('webAppApp', [
+    'ngSanitize',
     'ngAnimate',
     'ngCookies',
     'ngTouch',

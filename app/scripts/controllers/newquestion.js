@@ -29,6 +29,7 @@ angular.module('webAppApp')
     $scope.newQuestion = function (data) {
       $scope.loading = true
       var currentUser = AuthenticationService.getUserInfo()
+
       var data = {
         title: $scope.newQuestion.title,
         body: $scope.newQuestion.body,
