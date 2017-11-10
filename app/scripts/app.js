@@ -30,7 +30,6 @@ angular
     //   requireBase: false
     // })
 
-
     // Now set up the states
     $stateProvider
       .state('main', {
@@ -140,6 +139,10 @@ angular
         }
       })
     }
+  }])
+  .run(['PushNotifications', function (PushNotifications) {
+    // Push Notifications
+    PushNotifications.init()
   }])
   // Cors
   .config(['$httpProvider', function ($httpProvider) {

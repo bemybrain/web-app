@@ -8,7 +8,7 @@
  * Factory in the webAppApp.
  */
 angular.module('webAppApp')
-  .factory('AuthenticationService', function ($http, $q, $cookies, $state, ENV, AlertMessage) {
+  .factory('AuthenticationService', function ($http, $q, $cookies, $state, ENV, AlertMessage, PushNotifications) {
     var userInfo
 
     function login (username, password) {
@@ -52,9 +52,12 @@ angular.module('webAppApp')
 
     function loginSuccess (prom) {
       return function (result) {
-        setUserInfo(result.data)
+        var newUser = result.data
+        setUserInfo(newUser)
+        // Push Notifications
+        PushNotifications.subscribeUser(newUser._id)
         if (prom) {
-          prom.resolve(getUserInfo())
+          prom.resolve(newUser)
         }
       }
     }
@@ -83,6 +86,7 @@ angular.module('webAppApp')
 
     function logout () {
       var deferred = $q.defer()
+      var userId = getUserInfo()._id
 
       $http({
         method: 'GET',
@@ -90,6 +94,7 @@ angular.module('webAppApp')
       }).then(function (result) {
         $cookies.remove('userInfo')
         userInfo = null
+        PushNotifications.unsubscribeUser(userId)
         deferred.resolve(result)
       }, function (error) {
         deferred.reject(error)
